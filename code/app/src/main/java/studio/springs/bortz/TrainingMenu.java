@@ -1,9 +1,9 @@
 package studio.springs.bortz;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 public class TrainingMenu extends AppCompatActivity {
     @Override
@@ -12,5 +12,9 @@ public class TrainingMenu extends AppCompatActivity {
         setContentView(R.layout.activity_training_menu);
 
 
+    }
+    public void fightAI(View view) {
+        Intent game = new Intent(this, Game.class);
+        startActivity(game);
     }
 }

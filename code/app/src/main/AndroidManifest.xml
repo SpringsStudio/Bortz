@@ -12,6 +12,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".TrainingMenu"></activity>
+        <activity android:name=".Game"></activity>
     </application>
 
 </manifest>
