@@ -21,23 +21,59 @@
             tools:layout_editor_absoluteY="8dp"
             tools:layout_editor_absoluteX="8dp">
 
-            <Button
-                android:id="@+id/button3"
+            <ImageButton
+                android:id="@+id/button14"
+                android:onClick="buttonPressed"
                 android:layout_marginRight="8dp"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:text="Button" />
 
-            <Button
-                android:id="@+id/button2"
+            <ImageButton
+                android:id="@+id/button24"
                 android:layout_width="100dp"
+                android:layout_marginRight="8dp"
+                android:onClick="buttonPressed"
+                android:layout_height="100dp"
+                android:text="Button" />
+
+            <ImageButton
+                android:id="@+id/button34"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:onClick="buttonPressed"
+                android:text="Button" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:paddingTop="8dp"
+            tools:layout_editor_absoluteY="8dp"
+            tools:layout_editor_absoluteX="8dp">
+
+            <ImageButton
+                android:id="@+id/button13"
+                android:layout_width="100dp"
+                android:onClick="buttonPressed"
+                android:alpha="0"
                 android:layout_marginRight="8dp"
                 android:layout_height="100dp"
                 android:text="Button" />
 
-            <Button
-                android:id="@+id/button"
+            <ImageButton
+                android:id="@+id/button23"
                 android:layout_width="100dp"
+                android:layout_marginRight="8dp"
+                android:onClick="buttonPressed"
+                android:layout_height="100dp"
+                android:text="Button" />
+
+            <ImageButton
+                android:id="@+id/button33"
+                android:layout_width="100dp"
+                android:onClick="buttonPressed"
+                android:alpha="0"
                 android:layout_height="100dp"
                 android:text="Button" />
         </TableRow>
@@ -49,83 +85,59 @@
             tools:layout_editor_absoluteY="8dp"
             tools:layout_editor_absoluteX="8dp">
 
-            <Button
-                android:id="@+id/button6"
-                android:layout_width="100dp"
-                android:layout_marginRight="8dp"
-                android:visibility="invisible"
-                android:layout_height="100dp"
-                android:text="Button" />
-
-            <Button
-                android:id="@+id/button5"
-                android:layout_width="100dp"
-                android:layout_marginRight="8dp"
-                android:layout_height="100dp"
-                android:text="Button" />
-
-            <Button
-                android:id="@+id/button4"
-                android:visibility="invisible"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:text="Button" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:paddingTop="8dp"
-            tools:layout_editor_absoluteY="8dp"
-            tools:layout_editor_absoluteX="8dp">
-
-            <Button
-                android:id="@+id/button9"
-                android:layout_width="100dp"
-                android:visibility="invisible"
-                android:layout_height="100dp"
-                android:layout_marginRight="8dp"
-                android:text="Button" />
-
-            <Button
-                android:id="@+id/button8"
-                android:layout_width="100dp"
-                android:layout_marginRight="8dp"
-                android:layout_height="100dp"
-                android:text="Button" />
-
-            <Button
-                android:id="@+id/button7"
-                android:layout_width="100dp"
-                android:visibility="invisible"
-                android:layout_height="100dp"
-                android:text="Button" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:paddingTop="8dp"
-            tools:layout_editor_absoluteY="8dp"
-            tools:layout_editor_absoluteX="8dp">
-
-            <Button
+            <ImageButton
                 android:id="@+id/button12"
+                android:onClick="buttonPressed"
+                android:layout_width="100dp"
+                android:alpha="0"
+                android:layout_height="100dp"
+                android:layout_marginRight="8dp"
+                android:text="Button" />
+
+            <ImageButton
+                android:id="@+id/button22"
                 android:layout_width="100dp"
                 android:layout_marginRight="8dp"
+                android:onClick="buttonPressed"
                 android:layout_height="100dp"
                 android:text="Button" />
 
-            <Button
+            <ImageButton
+                android:id="@+id/button32"
+                android:layout_width="100dp"
+                android:alpha="0"
+                android:onClick="buttonPressed"
+                android:layout_height="100dp"
+                android:text="Button" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:paddingTop="8dp"
+            tools:layout_editor_absoluteY="8dp"
+            tools:layout_editor_absoluteX="8dp">
+
+            <ImageButton
                 android:id="@+id/button11"
                 android:layout_width="100dp"
                 android:layout_marginRight="8dp"
+                android:onClick="buttonPressed"
                 android:layout_height="100dp"
                 android:text="Button" />
 
-            <Button
-                android:id="@+id/button10"
+            <ImageButton
+                android:id="@+id/button21"
                 android:layout_width="100dp"
+                android:layout_marginRight="8dp"
+                android:onClick="buttonPressed"
+                android:layout_height="100dp"
+                android:text="Button" />
+
+            <ImageButton
+                android:id="@+id/button31"
+                android:layout_width="100dp"
+                android:onClick="buttonPressed"
                 android:layout_height="100dp"
                 android:text="Button" />
         </TableRow>
