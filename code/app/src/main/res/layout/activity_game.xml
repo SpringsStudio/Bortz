@@ -8,20 +8,22 @@
     tools:layout_editor_absoluteX="0dp">
 
     <TableLayout
-        android:layout_width="300dp"
-        android:layout_height="400dp"
-        app:layout_constraintHorizontal_bias="0.47"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="316dp"
+        android:layout_height="424dp"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="316dp"
+            android:layout_height="100dp"
+            tools:layout_editor_absoluteY="8dp"
+            tools:layout_editor_absoluteX="8dp">
 
             <Button
                 android:id="@+id/button3"
+                android:layout_marginRight="8dp"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:text="Button" />
@@ -29,6 +31,7 @@
             <Button
                 android:id="@+id/button2"
                 android:layout_width="100dp"
+                android:layout_marginRight="8dp"
                 android:layout_height="100dp"
                 android:text="Button" />
 
@@ -40,18 +43,23 @@
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:paddingTop="8dp"
+            tools:layout_editor_absoluteY="8dp"
+            tools:layout_editor_absoluteX="8dp">
 
             <Button
                 android:id="@+id/button6"
                 android:layout_width="100dp"
+                android:layout_marginRight="8dp"
                 android:layout_height="100dp"
                 android:text="Button" />
 
             <Button
                 android:id="@+id/button5"
                 android:layout_width="100dp"
+                android:layout_marginRight="8dp"
                 android:layout_height="100dp"
                 android:text="Button" />
 
@@ -63,18 +71,23 @@
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:paddingTop="8dp"
+            tools:layout_editor_absoluteY="8dp"
+            tools:layout_editor_absoluteX="8dp">
 
             <Button
                 android:id="@+id/button9"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:layout_marginRight="8dp"
                 android:text="Button" />
 
             <Button
                 android:id="@+id/button8"
                 android:layout_width="100dp"
+                android:layout_marginRight="8dp"
                 android:layout_height="100dp"
                 android:text="Button" />
 
@@ -86,18 +99,23 @@
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:paddingTop="8dp"
+            tools:layout_editor_absoluteY="8dp"
+            tools:layout_editor_absoluteX="8dp">
 
             <Button
                 android:id="@+id/button12"
                 android:layout_width="100dp"
+                android:layout_marginRight="8dp"
                 android:layout_height="100dp"
                 android:text="Button" />
 
             <Button
                 android:id="@+id/button11"
                 android:layout_width="100dp"
+                android:layout_marginRight="8dp"
                 android:layout_height="100dp"
                 android:text="Button" />
 
@@ -109,12 +127,4 @@
         </TableRow>
     </TableLayout>
 
-    <android.support.constraint.Guideline
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/guideline2"
-        app:layout_constraintGuide_begin="20dp"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="-410dp" />
 </android.support.constraint.ConstraintLayout>
