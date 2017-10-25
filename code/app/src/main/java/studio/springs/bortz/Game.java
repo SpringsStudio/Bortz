@@ -4,8 +4,13 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.util.Iterator;
+import java.util.Queue;
+
+import studio.springs.bortz.engine.GameChange;
 import studio.springs.bortz.engine.GameEngine;
 import studio.springs.bortz.engine.IllegalMoveException;
 import studio.springs.bortz.engine.Position;
@@ -19,18 +24,40 @@ public class Game extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         res = getResources();
+        updateView();
     }
 
     public void buttonPressed(View v) {
         String id = res.getResourceEntryName(v.getId());
         int buttonX = Character.getNumericValue(id.charAt(6));
         int buttonY = Character.getNumericValue(id.charAt(7));
-        Toast.makeText(getApplicationContext(), "Pressed button at position x: " + buttonX + " y: " + buttonY, Toast.LENGTH_SHORT).show();
         try {
             engine.selectBoardSquare(new Position(buttonX,buttonY));
+            updateView();
         }
         catch (IllegalMoveException ex){
             Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+    void updateView(){
+        Queue<GameChange> changes = engine.getChanges();
+        Iterator it = changes.iterator();
+        while (it.hasNext()) {
+            GameChange change = (GameChange) it.next();
+            final ImageButton button = (ImageButton) findViewById(res.getIdentifier("button" + change.getPosition().x + change.getPosition().y, "id", this.getPackageName()));
+            switch (change.getType()) {
+                case PIECE_ADDED:
+                    button.setAlpha(1.0f);
+                    switch (change.getPiece().getType()){
+                        case LION:
+                            button.setImageResource(R.drawable.ic_lion);
+                            break;
+                    }
+                    break;
+                case PIECE_REMOVED:
+                    button.setAlpha(0.0f);
+                    break;
+            }
         }
     }
 }

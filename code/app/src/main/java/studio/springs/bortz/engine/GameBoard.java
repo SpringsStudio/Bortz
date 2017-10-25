@@ -1,12 +1,17 @@
 package studio.springs.bortz.engine;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 import studio.springs.bortz.engine.pieces.GamePiece;
 
 public class GameBoard {
-    GamePiece[][] pieceBoard;
+    private GamePiece[][] pieceBoard;
+    Queue<GameChange> changes;
 
     public GameBoard(int width, int height) {
         pieceBoard = new GamePiece[width][height];
+        changes = new LinkedList<>();
     }
     public void placePiece(Position pos, GamePiece piece) throws IllegalMoveException {
         if (pieceBoard[pos.x][pos.y] != null) {
@@ -14,6 +19,7 @@ public class GameBoard {
         }
         else {
             pieceBoard[pos.x][pos.y] = piece;
+            changes.add(new GameChange(GameChange.ChangeType.PIECE_ADDED, pos, piece));
         }
     }
     public GamePiece getPiece(Position pos){
@@ -26,6 +32,8 @@ public class GameBoard {
         else if (getPiece(from).canMove(Position.Subtract(from,to))){
             pieceBoard[to.x][to.y] = pieceBoard[from.x][from.y];
             pieceBoard[from.x][from.y] = null;
+            changes.add(new GameChange(GameChange.ChangeType.PIECE_REMOVED, from, pieceBoard[from.x][from.y]));
+            changes.add(new GameChange(GameChange.ChangeType.PIECE_ADDED, to, pieceBoard[to.x][to.y]));
         }
         else throw new IllegalMoveException("This piece cannot move like this");
     }

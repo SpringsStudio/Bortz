@@ -24,6 +24,7 @@
             <ImageButton
                 android:id="@+id/button03"
                 android:onClick="buttonPressed"
+                android:alpha="0"
                 android:layout_marginRight="8dp"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
@@ -32,6 +33,7 @@
             <ImageButton
                 android:id="@+id/button13"
                 android:layout_width="100dp"
+                android:alpha="0"
                 android:layout_marginRight="8dp"
                 android:onClick="buttonPressed"
                 android:layout_height="100dp"
@@ -40,6 +42,7 @@
             <ImageButton
                 android:id="@+id/button23"
                 android:layout_width="100dp"
+                android:alpha="0"
                 android:layout_height="100dp"
                 android:onClick="buttonPressed"
                 android:text="Button" />
@@ -64,6 +67,7 @@
             <ImageButton
                 android:id="@+id/button12"
                 android:layout_width="100dp"
+                android:alpha="0"
                 android:layout_marginRight="8dp"
                 android:onClick="buttonPressed"
                 android:layout_height="100dp"
@@ -97,6 +101,7 @@
             <ImageButton
                 android:id="@+id/button11"
                 android:layout_width="100dp"
+                android:alpha="0"
                 android:layout_marginRight="8dp"
                 android:onClick="buttonPressed"
                 android:layout_height="100dp"
@@ -121,6 +126,7 @@
             <ImageButton
                 android:id="@+id/button00"
                 android:layout_width="100dp"
+                android:alpha="0"
                 android:layout_marginRight="8dp"
                 android:onClick="buttonPressed"
                 android:layout_height="100dp"
@@ -129,6 +135,7 @@
             <ImageButton
                 android:id="@+id/button10"
                 android:layout_width="100dp"
+                android:alpha="0"
                 android:layout_marginRight="8dp"
                 android:onClick="buttonPressed"
                 android:layout_height="100dp"
@@ -137,6 +144,7 @@
             <ImageButton
                 android:id="@+id/button20"
                 android:layout_width="100dp"
+                android:alpha="0"
                 android:onClick="buttonPressed"
                 android:layout_height="100dp"
                 android:text="Button" />

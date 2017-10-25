@@ -9,12 +9,4 @@ public abstract class GamePiece {
     public abstract PieceType getType();
     public PieceColor getColor() {return color; }
     void setColor(PieceColor color) {this.color = color; }
-    public void swapColor() {
-        if (color == PieceColor.BLACK) {
-            color = PieceColor.WHITE;
-        }
-        else {
-            color = PieceColor.BLACK;
-        }
-    }
 }
