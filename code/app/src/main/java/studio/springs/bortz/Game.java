@@ -6,13 +6,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import studio.springs.bortz.engine.GameEngine;
+
 public class Game extends AppCompatActivity {
+    final Resources res = getResources();
+    final GameEngine engine = new GameEngine();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
     }
-    final Resources res = getResources();
 
     public void buttonPressed(View v) {
         String id = res.getResourceEntryName(v.getId());
