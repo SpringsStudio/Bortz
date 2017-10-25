@@ -1,9 +1,6 @@
 package studio.springs.bortz.engine;
 
 import studio.springs.bortz.engine.pieces.GamePiece;
-import studio.springs.bortz.engine.pieces.GamePieceFactory;
-import studio.springs.bortz.engine.pieces.PieceColor;
-import studio.springs.bortz.engine.pieces.PieceType;
 
 public class GameBoard {
     GamePiece[][] pieceBoard;
@@ -18,5 +15,18 @@ public class GameBoard {
         else {
             pieceBoard[pos.x][pos.y] = piece;
         }
+    }
+    public GamePiece getPiece(Position pos){
+        return pieceBoard[pos.x][pos.y];
+    }
+    public void movePiece(Position from, Position to) throws IllegalMoveException{
+        if (getPiece(from).getColor() == getPiece(to).getColor()){
+            throw new IllegalMoveException("You cannot take your own piece.");
+        }
+        else if (getPiece(from).canMove(from, to)){
+            pieceBoard[to.x][to.y] = pieceBoard[from.x][from.y];
+            pieceBoard[from.x][from.y] = null;
+        }
+        else throw new IllegalMoveException("This piece cannot move like this");
     }
 }
