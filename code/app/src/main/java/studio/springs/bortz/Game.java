@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import studio.springs.bortz.engine.GameEngine;
+import studio.springs.bortz.engine.IllegalMoveException;
+import studio.springs.bortz.engine.Position;
 
 public class Game extends AppCompatActivity {
     Resources res;
@@ -24,5 +26,11 @@ public class Game extends AppCompatActivity {
         int buttonX = Character.getNumericValue(id.charAt(6));
         int buttonY = Character.getNumericValue(id.charAt(7));
         Toast.makeText(getApplicationContext(), "Pressed button at position x: " + buttonX + " y: " + buttonY, Toast.LENGTH_SHORT).show();
+        try {
+            engine.selectBoardSquare(new Position(buttonX,buttonY));
+        }
+        catch (IllegalMoveException ex){
+            Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 }

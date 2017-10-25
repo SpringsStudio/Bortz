@@ -16,8 +16,8 @@ public class GameEngine {
         board = new GameBoard(3,4);
 
         try {
-            board.placePiece(new Position(2, 1), factory.createPiece(PieceType.LION, PieceColor.WHITE));
-            board.placePiece(new Position(2, 4), factory.createPiece(PieceType.LION, PieceColor.BLACK));
+            board.placePiece(new Position(1, 0), factory.createPiece(PieceType.LION, PieceColor.WHITE));
+            board.placePiece(new Position(1, 3), factory.createPiece(PieceType.LION, PieceColor.BLACK));
         }
         catch (IllegalMoveException ex) {
             System.err.println("Something when wrong when initializing the game engine");
@@ -29,6 +29,7 @@ public class GameEngine {
             case WHITE_MOVE:
                 if (board.getPiece(pos) != null && board.getPiece(pos).getColor() == PieceColor.WHITE) {
                     selectedSquare = pos;
+                    state = GameState.WHITE_PIECE_SELECTED;
                 }
                 break;
             case WHITE_PIECE_SELECTED:
@@ -43,6 +44,7 @@ public class GameEngine {
             case BLACK_MOVE:
                 if (board.getPiece(pos) != null && board.getPiece(pos).getColor() == PieceColor.BLACK) {
                     selectedSquare = pos;
+                    state = GameState.BLACK_PIECE_SELECTED;
                 }
                 break;
             case BLACK_PIECE_SELECTED:

@@ -20,7 +20,7 @@ public class GameBoard {
         return pieceBoard[pos.x][pos.y];
     }
     public void movePiece(Position from, Position to) throws IllegalMoveException{
-        if (getPiece(from).getColor() == getPiece(to).getColor()){
+        if (getPiece(to) != null && getPiece(from).getColor() == getPiece(to).getColor()){
             throw new IllegalMoveException("You cannot take your own piece.");
         }
         else if (getPiece(from).canMove(from, to)){
