@@ -23,7 +23,7 @@ public class GameBoard {
         if (getPiece(to) != null && getPiece(from).getColor() == getPiece(to).getColor()){
             throw new IllegalMoveException("You cannot take your own piece.");
         }
-        else if (getPiece(from).canMove(from, to)){
+        else if (getPiece(from).canMove(Position.Subtract(from,to))){
             pieceBoard[to.x][to.y] = pieceBoard[from.x][from.y];
             pieceBoard[from.x][from.y] = null;
         }

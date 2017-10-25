@@ -4,8 +4,8 @@ import studio.springs.bortz.engine.Position;
 
 public class LionPiece extends GamePiece {
     @Override
-    public boolean canMove(Position from, Position to) {
-        return false;
+    public boolean canMove(Position vector) {
+       return Math.abs(vector.x) <= 1 && Math.abs(vector.y) <= 1;
     }
 
     @Override
