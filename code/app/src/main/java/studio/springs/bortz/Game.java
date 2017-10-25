@@ -9,13 +9,14 @@ import android.widget.Toast;
 import studio.springs.bortz.engine.GameEngine;
 
 public class Game extends AppCompatActivity {
-    final Resources res = getResources();
+    Resources res;
     final GameEngine engine = new GameEngine();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        res = getResources();
     }
 
     public void buttonPressed(View v) {
