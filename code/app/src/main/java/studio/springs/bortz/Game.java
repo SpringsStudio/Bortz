@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import java.util.Iterator;
 import java.util.Queue;
 
 import studio.springs.bortz.engine.GameChange;
@@ -41,9 +40,8 @@ public class Game extends AppCompatActivity {
     }
     void updateView(){
         Queue<GameChange> changes = engine.getChanges();
-        Iterator it = changes.iterator();
-        while (it.hasNext()) {
-            GameChange change = (GameChange) it.next();
+        while (changes.peek() != null) {
+            GameChange change = changes.remove();
             final ImageButton button = (ImageButton) findViewById(res.getIdentifier("button" + change.getPosition().x + change.getPosition().y, "id", this.getPackageName()));
             switch (change.getType()) {
                 case PIECE_ADDED:
