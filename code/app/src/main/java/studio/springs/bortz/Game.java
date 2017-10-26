@@ -1,6 +1,7 @@
 package studio.springs.bortz;
 
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,6 +14,7 @@ import studio.springs.bortz.engine.GameChange;
 import studio.springs.bortz.engine.GameEngine;
 import studio.springs.bortz.engine.IllegalMoveException;
 import studio.springs.bortz.engine.Position;
+import studio.springs.bortz.engine.pieces.PieceColor;
 
 public class Game extends AppCompatActivity {
     Resources res;
@@ -27,9 +29,9 @@ public class Game extends AppCompatActivity {
     }
 
     public void buttonPressed(View v) {
-        String id = res.getResourceEntryName(v.getId());
-        int buttonX = Character.getNumericValue(id.charAt(6));
-        int buttonY = Character.getNumericValue(id.charAt(7));
+        final String id = res.getResourceEntryName(v.getId());
+        final int buttonX = Character.getNumericValue(id.charAt(6));
+        final int buttonY = Character.getNumericValue(id.charAt(7));
         try {
             engine.selectBoardSquare(new Position(buttonX,buttonY));
             updateView();
@@ -39,7 +41,7 @@ public class Game extends AppCompatActivity {
         }
     }
     void updateView(){
-        Queue<GameChange> changes = engine.getChanges();
+        final Queue<GameChange> changes = engine.getChanges();
         while (changes.peek() != null) {
             GameChange change = changes.remove();
             final ImageButton button = (ImageButton) findViewById(res.getIdentifier("button" + change.getPosition().x + change.getPosition().y, "id", this.getPackageName()));
@@ -51,6 +53,10 @@ public class Game extends AppCompatActivity {
                             button.setImageResource(R.drawable.ic_lion);
                             break;
                     }
+                    if (change.getPiece().getColor() == PieceColor.WHITE) {
+                        button.setColorFilter(Color.WHITE);
+                    }
+                    else button.setColorFilter(null);
                     break;
                 case PIECE_REMOVED:
                     button.setAlpha(0.0f);
