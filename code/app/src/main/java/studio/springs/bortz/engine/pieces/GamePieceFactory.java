@@ -6,6 +6,8 @@ public class GamePieceFactory {
         switch (type) {
             case LION: piece = new LionPiece();
                 break;
+            case GIRAFFE: piece = new GiraffePiece();
+                break;
             default: return null;
         }
         piece.setColor(color);

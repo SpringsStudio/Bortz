@@ -52,6 +52,8 @@ public class Game extends AppCompatActivity {
                         case LION:
                             button.setImageResource(R.drawable.ic_lion);
                             break;
+                        case GIRAFFE:
+                            break;
                     }
                     if (change.getPiece().getColor() == PieceColor.WHITE) {
                         button.setColorFilter(Color.WHITE);
