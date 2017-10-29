@@ -54,6 +54,8 @@ public class Game extends AppCompatActivity {
                             break;
                         case GIRAFFE:
                             break;
+                        case ELEPHANT:
+                            break;
                     }
                     if (change.getPiece().getColor() == PieceColor.WHITE) {
                         button.setColorFilter(Color.WHITE);

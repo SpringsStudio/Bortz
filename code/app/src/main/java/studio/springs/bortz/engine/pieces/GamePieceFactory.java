@@ -8,6 +8,8 @@ public class GamePieceFactory {
                 break;
             case GIRAFFE: piece = new GiraffePiece();
                 break;
+            case ELEPHANT: piece = new ElephantPiece();
+                break;
             default: return null;
         }
         piece.setColor(color);
