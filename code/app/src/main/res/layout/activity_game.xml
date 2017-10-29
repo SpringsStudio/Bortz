@@ -17,40 +17,85 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingBottom="8dp"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp">
+            android:layout_weight="0.95">
 
-            <ImageButton
-                android:id="@+id/imageButtonB1"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="1"
-                android:alpha="10"
-                android:onClick="buttonPressed" />
+                android:layout_weight="1">
 
-            <ImageButton
-                android:id="@+id/imageButtonB2"
+                <ImageButton
+                    android:id="@+id/imageButtonB01"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:alpha="10"
+                    android:onClick="buttonPressed" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonB11"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:alpha="10"
+                    android:onClick="buttonPressed" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="1"
-                android:alpha="10"
-                android:onClick="buttonPressed" />
+                android:layout_weight="1">
 
-            <ImageButton
-                android:id="@+id/imageButtonB3"
+                <ImageButton
+                    android:id="@+id/imageButtonB02"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:alpha="10"
+                    android:onClick="buttonPressed" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonB12"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:alpha="10"
+                    android:onClick="buttonPressed" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="1"
-                android:alpha="10"
-                android:onClick="buttonPressed" />
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/imageButtonB03"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:alpha="10"
+                    android:onClick="buttonPressed" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonB13"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:alpha="10"
+                    android:onClick="buttonPressed" />
+            </RelativeLayout>
         </TableRow>
 
         <android.support.constraint.ConstraintLayout
@@ -258,41 +303,86 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:paddingTop="8dp"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp">
+            android:layout_weight="0.95"
+            android:gravity="right" >
 
-            <ImageButton
-                android:id="@+id/imageButtonW3"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="5dp"
-                android:layout_weight="1"
-                android:alpha="10"
-                android:onClick="buttonPressed" />
+                android:layout_weight="1">
 
-            <ImageButton
-                android:id="@+id/imageButtonW2"
+                <ImageButton
+                    android:id="@+id/imageButtonW03"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:alpha="10"
+                    android:onClick="buttonPressed" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonW13"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:alpha="10"
+                    android:onClick="buttonPressed" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1"
-                android:alpha="10"
-                android:onClick="buttonPressed" />
+                android:layout_weight="1">
 
-            <ImageButton
-                android:id="@+id/imageButtonW1"
+                <ImageButton
+                    android:id="@+id/imageButtonW02"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:alpha="10"
+                    android:onClick="buttonPressed" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonW12"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:alpha="10"
+                    android:onClick="buttonPressed" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1"
-                android:alpha="10"
-                android:onClick="buttonPressed" />
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/imageButtonW01"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:alpha="10"
+                    android:onClick="buttonPressed" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonW11"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:alpha="10"
+                    android:onClick="buttonPressed" />
+            </RelativeLayout>
 
         </TableRow>
 
