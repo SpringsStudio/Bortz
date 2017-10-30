@@ -41,12 +41,12 @@
         android:id="@+id/buttonRight"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:text="Button"
-        app:layout_constraintLeft_toRightOf="@+id/buttonDown"
+        android:layout_marginBottom="100dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
+        android:onClick="goToSettings"
+        android:text="Settings"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="100dp" />
+        app:layout_constraintLeft_toRightOf="@+id/buttonDown" />
 
     <Button
         android:id="@+id/buttonLeft"

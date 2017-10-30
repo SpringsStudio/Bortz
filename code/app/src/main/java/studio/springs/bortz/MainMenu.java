@@ -26,4 +26,9 @@ public class MainMenu extends AppCompatActivity {
         Intent train = new Intent(this, TrainingMenu.class);
         startActivity(train);
     }
+
+    public void goToSettings(View view) {
+        Intent set = new Intent(this, SettingsMenu.class);
+        startActivity(set);
+    }
 }
