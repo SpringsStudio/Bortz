@@ -56,6 +56,9 @@ public class GameEngine {
                 if (((Position) state.getSelection()).Equals(pos)) {
                     state.changeState(GameState.StateType.MOVE);
                 }
+                else if (board.getPiece(pos) != null && board.getPiece(pos).getColor() == state.getPlayerColor()){
+                    state.setSelection(pos);
+                }
                 else {
                     board.movePiece((Position) state.getSelection(), pos);
                     state.changeState(GameState.StateType.MOVE,PieceColor.opposite(state.getPlayerColor()));

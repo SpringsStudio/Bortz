@@ -43,9 +43,12 @@ public class GameBoard {
     }
     public void removeCapturedPiece(PieceType type, PieceColor color){
         capturedPieces.put(new Pair<>(color, type), countCapturedPieces(type, color) - 1);
-        changes.add(new GameChange(GameChange.ChangeType.PIECE_PLACED, null, GamePieceFactory.createPiece(type, color)));
+        changes.add(new GameChange(GameChange.ChangeType.PIECE_PLACED,
+                new Position(countCapturedPieces(type, color),0), GamePieceFactory.createPiece(type, color)));
     }
     private void addCapturedPiece(PieceType type, PieceColor color){
+        changes.add(new GameChange(GameChange.ChangeType.PIECE_CAPTURED,
+                new Position(countCapturedPieces(type, color),0), GamePieceFactory.createPiece(type, color)));
         capturedPieces.put(new Pair<>(color, type), countCapturedPieces(type, color) + 1);
     }
     public void movePiece(Position from, Position to) throws IllegalMoveException{
@@ -57,8 +60,7 @@ public class GameBoard {
             changes.add(new GameChange(GameChange.ChangeType.PIECE_REMOVED, from, getPiece(from)));
             if (getPiece(to) != null) {
                 PieceType type = getPiece(to).getType() == PieceType.CHICKEN ? PieceType.CHICK : getPiece(to).getType();
-                addCapturedPiece(type, getPiece(to).getColor());
-                changes.add(new GameChange(GameChange.ChangeType.PIECE_CAPTURED, null, getPiece(to)));
+                addCapturedPiece(type, PieceColor.opposite(getPiece(to).getColor()));
             }
             setPiece(to, getPiece(from));
             setPiece(from, null);

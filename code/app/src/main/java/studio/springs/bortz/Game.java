@@ -3,7 +3,6 @@ package studio.springs.bortz;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
@@ -85,8 +84,11 @@ public class Game extends AppCompatActivity {
         ImageButton button;
         while (changes.peek() != null) {
             GameChange change = changes.remove();
+            System.out.println("[Change] Type: " + change.getType().name() + "; Position: x=" +
+                    change.getPosition().x + ", y=" + change.getPosition().y + "; Piece: type=" +
+                    change.getPiece().getType().name() + ", color=" + change.getPiece().getColor().name());
             switch (change.getType()) {
-                case PIECE_ADDED:;
+                case PIECE_ADDED:
                     button = getBoardButton(change.getPosition());
                     button.setAlpha(1.0f);
                     button.setImageDrawable(tmanager.getPieceDrawable(change.getPiece().getType()));
@@ -104,11 +106,11 @@ public class Game extends AppCompatActivity {
                     button.setAlpha(0.0f);
                     break;
                 case PIECE_CAPTURED:
-                    button = getCapturedPieceButton(PieceColor.opposite(change.getPiece().getColor()),change.getPiece().getType(),0);
+                    button = getCapturedPieceButton(change.getPiece().getColor(),change.getPiece().getType(), change.getPosition().x);
                     button.setVisibility(View.VISIBLE);
                     break;
                 case PIECE_PLACED:
-                    button = getCapturedPieceButton(change.getPiece().getColor(),change.getPiece().getType(),0);
+                    button = getCapturedPieceButton(change.getPiece().getColor(),change.getPiece().getType(),change.getPosition().x);
                     button.setVisibility(View.INVISIBLE);
                     break;
 
