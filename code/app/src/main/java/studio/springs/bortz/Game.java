@@ -2,6 +2,8 @@ package studio.springs.bortz;
 
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,10 +17,12 @@ import studio.springs.bortz.engine.GameEngine;
 import studio.springs.bortz.engine.IllegalMoveException;
 import studio.springs.bortz.engine.Position;
 import studio.springs.bortz.engine.pieces.PieceColor;
+import studio.springs.bortz.engine.pieces.PieceType;
 
 public class Game extends AppCompatActivity {
     Resources res;
     final GameEngine engine = new GameEngine();
+    ThemeManager tmanager = new ThemeManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,25 +48,19 @@ public class Game extends AppCompatActivity {
         final Queue<GameChange> changes = engine.getChanges();
         while (changes.peek() != null) {
             GameChange change = changes.remove();
-            final ImageButton button = (ImageButton) findViewById(res.getIdentifier("button" + change.getPosition().x + change.getPosition().y, "id", this.getPackageName()));
+            final ImageButton button = findViewById(res.getIdentifier("button" + change.getPosition().x + change.getPosition().y, "id", this.getPackageName()));
             switch (change.getType()) {
                 case PIECE_ADDED:
                     button.setAlpha(1.0f);
-                    switch (change.getPiece().getType()){
-                        case LION:
-                            button.setImageResource(R.drawable.ic_lion);
-                            break;
-                        case GIRAFFE:
-                            break;
-                        case ELEPHANT:
-                            break;
-                        case CHICK:
-                            break;
-                    }
+                    button.setImageDrawable(tmanager.getPieceDrawable(change.getPiece().getType(), res));
                     if (change.getPiece().getColor() == PieceColor.WHITE) {
+                        button.setRotation(0);
                         button.setColorFilter(Color.WHITE);
                     }
-                    else button.setColorFilter(null);
+                    else{
+                        button.setRotation(180);
+                        button.setColorFilter(null);
+                    }
                     break;
                 case PIECE_REMOVED:
                     button.setAlpha(0.0f);

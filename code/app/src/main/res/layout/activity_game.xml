@@ -9,6 +9,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:baselineAligned="true"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.1"
@@ -30,9 +31,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginRight="5dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_weight="1"
-                    android:alpha="10"
-                    android:onClick="buttonPressed" />
+                    android:alpha="10"/>
 
                 <ImageButton
                     android:id="@+id/imageButtonB11"
@@ -40,9 +39,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:alpha="10"
-                    android:onClick="buttonPressed" />
+                    android:alpha="10"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -56,9 +53,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginRight="5dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_weight="1"
-                    android:alpha="10"
-                    android:onClick="buttonPressed" />
+                    android:alpha="10"/>
 
                 <ImageButton
                     android:id="@+id/imageButtonB12"
@@ -66,9 +61,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:alpha="10"
-                    android:onClick="buttonPressed" />
+                    android:alpha="10"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -82,9 +75,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginRight="5dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_weight="1"
-                    android:alpha="10"
-                    android:onClick="buttonPressed" />
+                    android:alpha="10"/>
 
                 <ImageButton
                     android:id="@+id/imageButtonB13"
@@ -92,9 +83,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:alpha="10"
-                    android:onClick="buttonPressed" />
+                    android:alpha="10"/>
             </RelativeLayout>
         </TableRow>
 
@@ -138,7 +127,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_android_black_24dp"
+                    android:scaleType="fitXY"
                     android:layout_marginRight="8dp"
                     android:alpha="0"
                     android:onClick="buttonPressed"
@@ -149,7 +138,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_android_black_24dp"
+                    android:scaleType="fitXY"
                     android:layout_marginRight="8dp"
                     android:alpha="0"
                     android:onClick="buttonPressed"
@@ -160,7 +149,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_android_black_24dp"
+                    android:scaleType="fitXY"
                     android:alpha="0"
                     android:onClick="buttonPressed"
                     android:text="Button" />
@@ -179,7 +168,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_android_black_24dp"
+                    android:scaleType="fitXY"
                     android:layout_marginRight="8dp"
                     android:alpha="0"
                     android:onClick="buttonPressed"
@@ -190,6 +179,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:scaleType="fitXY"
                     android:layout_marginRight="8dp"
                     android:alpha="0"
                     android:onClick="buttonPressed"
@@ -200,6 +190,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:scaleType="fitXY"
                     android:alpha="0"
                     android:onClick="buttonPressed"
                     android:text="Button" />
@@ -218,7 +209,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_android_black_24dp"
+                    android:scaleType="fitXY"
                     android:layout_marginRight="8dp"
                     android:alpha="0"
                     android:onClick="buttonPressed"
@@ -229,6 +220,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:scaleType="fitXY"
                     android:layout_marginRight="8dp"
                     android:alpha="0"
                     android:onClick="buttonPressed"
@@ -239,6 +231,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:scaleType="fitXY"
                     android:alpha="0"
                     android:onClick="buttonPressed"
                     android:text="Button" />
@@ -257,7 +250,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_android_black_24dp"
+                    android:scaleType="fitXY"
                     android:layout_marginRight="8dp"
                     android:alpha="0"
                     android:onClick="buttonPressed"
@@ -268,6 +261,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:scaleType="fitXY"
                     android:layout_marginRight="8dp"
                     android:alpha="0"
                     android:onClick="buttonPressed"
@@ -278,6 +272,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:scaleType="fitXY"
                     android:alpha="0"
                     android:onClick="buttonPressed"
                     android:text="Button" />
@@ -317,9 +312,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:alpha="10"
-                    android:onClick="buttonPressed" />
+                    android:alpha="10"/>
 
                 <ImageButton
                     android:id="@+id/imageButtonW13"
@@ -327,9 +320,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="5dp"
                     android:layout_marginRight="5dp"
-                    android:layout_weight="1"
-                    android:alpha="10"
-                    android:onClick="buttonPressed" />
+                    android:alpha="10"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -343,9 +334,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:alpha="10"
-                    android:onClick="buttonPressed" />
+                    android:alpha="10"/>
 
                 <ImageButton
                     android:id="@+id/imageButtonW12"
@@ -354,8 +343,7 @@
                     android:layout_marginBottom="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
-                    android:alpha="10"
-                    android:onClick="buttonPressed" />
+                    android:alpha="10"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -369,9 +357,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:alpha="10"
-                    android:onClick="buttonPressed" />
+                    android:alpha="10"/>
 
                 <ImageButton
                     android:id="@+id/imageButtonW11"
@@ -379,9 +365,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="5dp"
                     android:layout_marginRight="5dp"
-                    android:layout_weight="1"
-                    android:alpha="10"
-                    android:onClick="buttonPressed" />
+                    android:alpha="10"/>
             </RelativeLayout>
 
         </TableRow>
