@@ -30,7 +30,7 @@ public class Game extends AppCompatActivity {
         updateView();
     }
 
-    public void buttonPressed(View v) {
+    public void boardButtonPressed(View v) {
         final String id = res.getResourceEntryName(v.getId());
         final int buttonX = Character.getNumericValue(id.charAt(6));
         final int buttonY = Character.getNumericValue(id.charAt(7));
