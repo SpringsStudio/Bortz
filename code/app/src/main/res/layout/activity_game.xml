@@ -30,6 +30,7 @@
                     android:id="@+id/imageButtonB01"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:onClick="capturedPieceButtonPressed"
                     android:layout_marginRight="5dp"
                     android:layout_marginBottom="5dp"
                     android:alpha="10"/>
@@ -37,6 +38,7 @@
                 <ImageButton
                     android:id="@+id/imageButtonB11"
                     android:layout_width="match_parent"
+                    android:onClick="capturedPieceButtonPressed"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="5dp"
@@ -52,6 +54,7 @@
                     android:id="@+id/imageButtonB02"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:onClick="capturedPieceButtonPressed"
                     android:layout_marginRight="5dp"
                     android:layout_marginBottom="5dp"
                     android:alpha="10"/>
@@ -59,6 +62,7 @@
                 <ImageButton
                     android:id="@+id/imageButtonB12"
                     android:layout_width="match_parent"
+                    android:onClick="capturedPieceButtonPressed"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="5dp"
@@ -74,6 +78,7 @@
                     android:id="@+id/imageButtonB03"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:onClick="capturedPieceButtonPressed"
                     android:layout_marginRight="5dp"
                     android:layout_marginBottom="5dp"
                     android:alpha="10"/>
@@ -82,6 +87,7 @@
                     android:id="@+id/imageButtonB13"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:onClick="capturedPieceButtonPressed"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="5dp"
                     android:alpha="10"/>
@@ -299,6 +305,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
+                    android:onClick="capturedPieceButtonPressed"
                     android:layout_marginTop="5dp"
                     android:alpha="10"/>
 
@@ -307,6 +314,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="5dp"
+                    android:onClick="capturedPieceButtonPressed"
                     android:layout_marginRight="5dp"
                     android:alpha="10"/>
             </RelativeLayout>
@@ -323,6 +331,7 @@
                     android:layout_marginLeft="5dp"
                     android:src="@drawable/ic_chick_kanji"
                     android:scaleType="fitXY"
+                    android:onClick="capturedPieceButtonPressed"
                     android:layout_marginTop="5dp"
                     android:alpha="10"/>
 
@@ -334,6 +343,7 @@
                     android:src="@drawable/ic_chick_kanji"
                     android:scaleType="fitXY"
                     android:layout_marginRight="5dp"
+                    android:onClick="capturedPieceButtonPressed"
                     android:alpha="10"/>
             </RelativeLayout>
 
@@ -348,6 +358,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="5dp"
+                    android:onClick="capturedPieceButtonPressed"
                     android:alpha="10"/>
 
                 <ImageButton
@@ -356,6 +367,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="5dp"
                     android:layout_marginRight="5dp"
+                    android:onClick="capturedPieceButtonPressed"
                     android:alpha="10"/>
             </RelativeLayout>
 

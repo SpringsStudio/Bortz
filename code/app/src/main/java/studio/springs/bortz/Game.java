@@ -15,11 +15,12 @@ import studio.springs.bortz.engine.GameEngine;
 import studio.springs.bortz.engine.IllegalMoveException;
 import studio.springs.bortz.engine.Position;
 import studio.springs.bortz.engine.pieces.PieceColor;
+import studio.springs.bortz.engine.pieces.PieceType;
 
 public class Game extends AppCompatActivity {
-    Resources res;
-    final GameEngine engine = new GameEngine();
-    ThemeManager tmanager = new ThemeManager();
+    private Resources res;
+    private final GameEngine engine = new GameEngine();
+    private ThemeManager tmanager = new ThemeManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,14 @@ public class Game extends AppCompatActivity {
         catch (IllegalMoveException ex){
             Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
+    }
+    public void capturedPieceButtonPressed(View v){
+        final String id = res.getResourceEntryName(v.getId());
+        final char colorLetter = id.charAt(11);
+        final PieceColor color = (colorLetter == 'W') ? PieceColor.WHITE : PieceColor.BLACK;
+        final PieceType type = PieceType.values()[Character.getNumericValue(id.charAt(13))];
+        engine.selectCapturedPiece(type, color);
+
     }
     void updateView(){
         final Queue<GameChange> changes = engine.getChanges();

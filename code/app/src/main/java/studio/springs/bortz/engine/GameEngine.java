@@ -9,7 +9,6 @@ import studio.springs.bortz.engine.pieces.PieceType;
 public class GameEngine {
     private GameBoard board;
     private GameState state;
-    private Position selectedSquare;
 
     public GameEngine() {
         state = new GameState();
@@ -30,23 +29,44 @@ public class GameEngine {
             System.exit(1);
         }
     }
+
+    public void selectCapturedPiece(PieceType type, PieceColor color) {
+
+        switch (state.getType()){
+            case MOVE:
+                Integer piecesNumber = board.countCapturedPieces(type, color);
+                if ( color == state.getPlayerColor() && piecesNumber > 0){
+                    state.changeState(GameState.StateType.CAPTURED_PIECE_SELECTED);
+                    state.setSelection(type);
+                }
+                break;
+            default: break;
+        }
+    }
+
     public void selectBoardSquare(Position pos) throws IllegalMoveException{
         switch (state.getType()) {
             case MOVE:
                 if (board.getPiece(pos) != null && board.getPiece(pos).getColor() == state.getPlayerColor()) {
-                    selectedSquare = pos;
-                    state.changeState(GameState.StateType.PIECE_SELECTED);
+                    state.setSelection(pos);
+                    state.changeState(GameState.StateType.BOARD_PIECE_SELECTED);
                 }
                 break;
-            case PIECE_SELECTED:
-                if (selectedSquare.Equals(pos)) {
+            case BOARD_PIECE_SELECTED:
+                if (((Position) state.getSelection()).Equals(pos)) {
                     state.changeState(GameState.StateType.MOVE);
                 }
                 else {
-                    board.movePiece(selectedSquare, pos);
+                    board.movePiece((Position) state.getSelection(), pos);
                     state.changeState(GameState.StateType.MOVE,PieceColor.opposite(state.getPlayerColor()));
                 }
                 break;
+            case CAPTURED_PIECE_SELECTED:
+                board.placePiece(pos,GamePieceFactory.createPiece((PieceType) state.getSelection(),state.getPlayerColor()));
+                board.removeCapturedPiece((PieceType) state.getSelection(), state.getPlayerColor());
+                state.changeState(GameState.StateType.MOVE,PieceColor.opposite(state.getPlayerColor()));
+                break;
+
         }
     }
     public Queue<GameChange> getChanges(){
