@@ -5,7 +5,9 @@ import studio.springs.bortz.engine.pieces.GamePiece;
 public class GameChange {
     public enum ChangeType {
         PIECE_REMOVED,
-        PIECE_ADDED
+        PIECE_ADDED,
+        PIECE_CAPTURED,
+        PIECE_PLACED
     }
     private final ChangeType type;
     private final Position pos;

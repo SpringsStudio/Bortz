@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Queue;
 
 import studio.springs.bortz.engine.pieces.GamePiece;
+import studio.springs.bortz.engine.pieces.GamePieceFactory;
 import studio.springs.bortz.engine.pieces.PieceColor;
 import studio.springs.bortz.engine.pieces.PieceType;
 
@@ -42,6 +43,7 @@ public class GameBoard {
     }
     public void removeCapturedPiece(PieceType type, PieceColor color){
         capturedPieces.put(new Pair<>(color, type), countCapturedPieces(type, color) - 1);
+        changes.add(new GameChange(GameChange.ChangeType.PIECE_PLACED, null, GamePieceFactory.createPiece(type, color)));
     }
     private void addCapturedPiece(PieceType type, PieceColor color){
         capturedPieces.put(new Pair<>(color, type), countCapturedPieces(type, color) + 1);
@@ -52,10 +54,13 @@ public class GameBoard {
         }
         else if (getPiece(from).canMove(Position.Subtract(from,to))){
             changes.add(new GameChange(GameChange.ChangeType.PIECE_ADDED, to, getPiece(from)));
-            setPiece(to, getPiece(from));
             changes.add(new GameChange(GameChange.ChangeType.PIECE_REMOVED, from, getPiece(from)));
-            PieceType type = getPiece(from).getType() == PieceType.CHICKEN ? PieceType.CHICK : getPiece(from).getType();
-            addCapturedPiece(type, getPiece(from).getColor());
+            if (getPiece(to) != null) {
+                PieceType type = getPiece(to).getType() == PieceType.CHICKEN ? PieceType.CHICK : getPiece(to).getType();
+                addCapturedPiece(type, getPiece(to).getColor());
+                changes.add(new GameChange(GameChange.ChangeType.PIECE_CAPTURED, null, getPiece(to)));
+            }
+            setPiece(to, getPiece(from));
             setPiece(from, null);
         }
         else throw new IllegalMoveException("This piece cannot move like this");
