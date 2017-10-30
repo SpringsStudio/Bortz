@@ -16,19 +16,16 @@ public class ThemeManager {
 
     static class GuidesMap {
         private final Map<PieceType,Integer> guidesMap;
-        private final boolean guidesEnabled;
-        public GuidesMap(boolean guidesEnabled) {
+        GuidesMap() {
             guidesMap = new HashMap<>();
-            this.guidesEnabled = guidesEnabled;
-            if (!guidesEnabled) return;
             guidesMap.put(PieceType.LION, R.drawable.ic_lion_guides);
             guidesMap.put(PieceType.CHICK, R.drawable.ic_chick_guides);
             guidesMap.put(PieceType.CHICKEN, R.drawable.ic_chicken_guides);
             guidesMap.put(PieceType.GIRAFFE, R.drawable.ic_giraffe_guides);
             guidesMap.put(PieceType.ELEPHANT, R.drawable.ic_elephant_guides);
         }
-        public Integer get(PieceType type){
-           return guidesEnabled ? guidesMap.get(type) : R.drawable.ic_nothing;
+        Integer get(PieceType type){
+           return guidesMap.get(type);
         }
     }
 
@@ -46,21 +43,34 @@ public class ThemeManager {
         return resourceMap;
     }
 
-    final Theme defaultTheme;
-    final boolean defaultGuides;
-    final Map<PieceType,Integer> resourcesMap;
+    public static final Theme DEFAULT_THEME = Theme.KANJI;
+    public static final boolean DEFAULT_GUIDES = true;
+
+    private final Theme theme;
+    private final boolean guidesEnabled;
+    private final Map<PieceType,Integer> resourcesMap;
     private final GuidesMap guidesMap;
+    private Map<PieceType,Drawable[]> drawableMap;
 
     public ThemeManager() {
-        defaultTheme = Theme.KANJI;
-        defaultGuides = true;
-        guidesMap = new GuidesMap(defaultGuides);
+        if (false) { //Check if setting are set
 
-        resourcesMap = getResourceMap(defaultTheme);
+        } else {
+            theme = DEFAULT_THEME;
+            guidesEnabled = DEFAULT_GUIDES;
+        }
+        guidesMap = new GuidesMap();
+        resourcesMap = getResourceMap(theme);
     }
 
-    public LayerDrawable getPieceDrawable(PieceType type, Resources res){return new LayerDrawable(new Drawable[] {
-            res.getDrawable(resourcesMap.get(type)),
-            res.getDrawable(guidesMap.get(type))
-    });}
+    public void createDrawableMap(Resources res){
+        drawableMap = new HashMap<>();
+        for (PieceType type : PieceType.values()) {
+            drawableMap.put(type,new Drawable[guidesEnabled ? 2 : 1]);
+            drawableMap.get(type)[0] = res.getDrawable(resourcesMap.get(type));
+            if (guidesEnabled) drawableMap.get(type)[1] = res.getDrawable(guidesMap.get(type));
+        }
+    }
+
+    public LayerDrawable getPieceDrawable(PieceType type){return new LayerDrawable(drawableMap.get(type));}
 }

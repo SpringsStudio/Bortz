@@ -2,8 +2,6 @@ package studio.springs.bortz;
 
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -17,7 +15,6 @@ import studio.springs.bortz.engine.GameEngine;
 import studio.springs.bortz.engine.IllegalMoveException;
 import studio.springs.bortz.engine.Position;
 import studio.springs.bortz.engine.pieces.PieceColor;
-import studio.springs.bortz.engine.pieces.PieceType;
 
 public class Game extends AppCompatActivity {
     Resources res;
@@ -29,6 +26,7 @@ public class Game extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         res = getResources();
+        tmanager.createDrawableMap(res);
         updateView();
     }
 
@@ -52,7 +50,7 @@ public class Game extends AppCompatActivity {
             switch (change.getType()) {
                 case PIECE_ADDED:
                     button.setAlpha(1.0f);
-                    button.setImageDrawable(tmanager.getPieceDrawable(change.getPiece().getType(), res));
+                    button.setImageDrawable(tmanager.getPieceDrawable(change.getPiece().getType()));
                     if (change.getPiece().getColor() == PieceColor.WHITE) {
                         button.setRotation(0);
                         button.setColorFilter(Color.WHITE);
