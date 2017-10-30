@@ -12,7 +12,7 @@ public class GameEngine {
     private Position selectedSquare;
 
     public GameEngine() {
-        state = GameState.WHITE_MOVE;
+        state = new GameState();
         board = new GameBoard(3,4);
 
         try {
@@ -31,40 +31,23 @@ public class GameEngine {
         }
     }
     public void selectBoardSquare(Position pos) throws IllegalMoveException{
-        switch (state) {
-            case WHITE_MOVE:
-                if (board.getPiece(pos) != null && board.getPiece(pos).getColor() == PieceColor.WHITE) {
+        switch (state.getType()) {
+            case MOVE:
+                if (board.getPiece(pos) != null && board.getPiece(pos).getColor() == state.getPlayerColor()) {
                     selectedSquare = pos;
-                    state = GameState.WHITE_PIECE_SELECTED;
+                    state.changeState(GameState.StateType.PIECE_SELECTED);
                 }
                 break;
-            case WHITE_PIECE_SELECTED:
+            case PIECE_SELECTED:
                 if (selectedSquare.Equals(pos)) {
-                    state = GameState.WHITE_MOVE;
+                    state.changeState(GameState.StateType.MOVE);
                 }
                 else {
                     board.movePiece(selectedSquare, pos);
-                    state = GameState.BLACK_MOVE;
+                    state.changeState(GameState.StateType.MOVE,PieceColor.opposite(state.getPlayerColor()));
                 }
                 break;
-            case BLACK_MOVE:
-                if (board.getPiece(pos) != null && board.getPiece(pos).getColor() == PieceColor.BLACK) {
-                    selectedSquare = pos;
-                    state = GameState.BLACK_PIECE_SELECTED;
-                }
-                break;
-            case BLACK_PIECE_SELECTED:
-                if (selectedSquare.Equals(pos)) {
-                    state = GameState.BLACK_MOVE;
-                }
-                else {
-                    board.movePiece(selectedSquare, pos);
-                    state = GameState.WHITE_MOVE;
-                }
-                break;
-
         }
-
     }
     public Queue<GameChange> getChanges(){
         return board.changes;
