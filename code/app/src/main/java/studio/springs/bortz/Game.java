@@ -84,9 +84,11 @@ public class Game extends AppCompatActivity {
         ImageButton button;
         while (changes.peek() != null) {
             GameChange change = changes.remove();
+            // ------------------ DEBUGGING INFO ---------------------------------------------------------- //
             System.out.println("[Change] Type: " + change.getType().name() + "; Position: x=" +
                     change.getPosition().x + ", y=" + change.getPosition().y + "; Piece: type=" +
                     change.getPiece().getType().name() + ", color=" + change.getPiece().getColor().name());
+            // -------------------------------------------------------------------------------------------- //
             switch (change.getType()) {
                 case PIECE_ADDED:
                     button = getBoardButton(change.getPosition());
