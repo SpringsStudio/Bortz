@@ -83,13 +83,13 @@ public class GameEngine {
          void movePiece(Position from, Position to) throws IllegalMoveException {
             if (board.getPiece(to) != null && board.getPiece(from).getColor() == board.getPiece(to).getColor()) {
                 throw new IllegalMoveException("You cannot take your own piece.");
-            } else if (board.getPiece(from).canMove(Position.Subtract(from, to))) {
+            } else if (board.getPiece(from).canMove(Position.Subtract(to, from))) {
                 if (board.getPiece(to) != null) {
                     PieceType type = board.getPiece(to).getType() == PieceType.CHICKEN ? PieceType.CHICK : board.getPiece(to).getType();
                     board.addCapturedPiece(type, PieceColor.opposite(board.getPiece(to).getColor()));
                 }
                 // Turn chick into chicken if it reaches the end of the board.
-                if (to.y == board.getSize().y && board.getPiece(from).getType() == PieceType.CHICK){
+                if (to.y == board.getSize().y - 1 && board.getPiece(from).getType() == PieceType.CHICK){
                     board.setPiece(to, GamePieceFactory.createPiece(PieceType.CHICKEN,board.getPiece(from).getColor()));
                 }
                 else {

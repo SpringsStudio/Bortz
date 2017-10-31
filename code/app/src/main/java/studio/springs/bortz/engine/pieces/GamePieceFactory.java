@@ -12,6 +12,8 @@ public class GamePieceFactory {
                 break;
             case CHICK: piece = new ChickPiece();
                 break;
+            case CHICKEN: piece = new ChickenPiece();
+                break;
             default: return null;
         }
         piece.setColor(color);
