@@ -89,7 +89,7 @@ public class GameEngine {
                     board.addCapturedPiece(type, PieceColor.opposite(board.getPiece(to).getColor()));
                 }
                 // Turn chick into chicken if it reaches the end of the board.
-                if (to.y == board.getSize().y - 1 && board.getPiece(from).getType() == PieceType.CHICK){
+                if (board.getPiece(from).getType() == PieceType.CHICK && (to.y == board.getSize().y - 1 || to.y == 0)){
                     board.setPiece(to, GamePieceFactory.createPiece(PieceType.CHICKEN,board.getPiece(from).getColor()));
                 }
                 else {
