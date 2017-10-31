@@ -88,7 +88,13 @@ public class GameEngine {
                     PieceType type = board.getPiece(to).getType() == PieceType.CHICKEN ? PieceType.CHICK : board.getPiece(to).getType();
                     board.addCapturedPiece(type, PieceColor.opposite(board.getPiece(to).getColor()));
                 }
-                board.setPiece(to, board.getPiece(from));
+                // Turn chick into chicken if it reaches the end of the board.
+                if (to.y == board.getSize().y && board.getPiece(from).getType() == PieceType.CHICK){
+                    board.setPiece(to, GamePieceFactory.createPiece(PieceType.CHICKEN,board.getPiece(from).getColor()));
+                }
+                else {
+                    board.setPiece(to, board.getPiece(from));
+                }
                 board.setPiece(from, null);
             } else throw new IllegalMoveException("This piece cannot move like this");
         }

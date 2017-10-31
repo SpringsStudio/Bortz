@@ -34,6 +34,9 @@ import studio.springs.bortz.engine.pieces.PieceType;
         }
         pieceBoard[pos.x][pos.y] = piece;
     }
+    public Position getSize(){
+        return new Position(pieceBoard.length, pieceBoard[0].length);
+    }
     Integer countCapturedPieces(PieceType type, PieceColor color){
         final Integer count = capturedPieces.get(new Pair<>(color, type));
         return count == null ? 0 : count;
