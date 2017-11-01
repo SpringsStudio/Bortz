@@ -44,11 +44,11 @@ import studio.springs.bortz.engine.pieces.PieceType;
     void removeCapturedPiece(PieceType type, PieceColor color){
         capturedPieces.put(new Pair<>(color, type), countCapturedPieces(type, color) - 1);
         changes.add(new GameChange(GameChange.ChangeType.PIECE_PLACED,
-                new Position(countCapturedPieces(type, color),0), GamePieceFactory.createPiece(type, color)));
+                new Position(countCapturedPieces(type, color),-1), GamePieceFactory.createPiece(type, color)));
     }
     void addCapturedPiece(PieceType type, PieceColor color){
         changes.add(new GameChange(GameChange.ChangeType.PIECE_CAPTURED,
-                new Position(countCapturedPieces(type, color),0), GamePieceFactory.createPiece(type, color)));
+                new Position(countCapturedPieces(type, color),-1), GamePieceFactory.createPiece(type, color)));
         capturedPieces.put(new Pair<>(color, type), countCapturedPieces(type, color) + 1);
     }
 }

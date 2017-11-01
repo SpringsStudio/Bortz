@@ -11,22 +11,15 @@ public class GameEngine {
     private GameBoard board;
     private GameState state;
     private BoardLogic logic;
+
     public GameEngine() {
+        board = new GameBoard(3,4);
         logic = new BoardLogic();
         state = new GameState();
-        board = new GameBoard(3,4);
 
         try {
-            logic.placePiece(new Position(1, 0), GamePieceFactory.createPiece(PieceType.LION, PieceColor.WHITE));
-            logic.placePiece(new Position(1, 3), GamePieceFactory.createPiece(PieceType.LION, PieceColor.BLACK));
-            logic.placePiece(new Position(2, 0), GamePieceFactory.createPiece(PieceType.GIRAFFE, PieceColor.WHITE));
-            logic.placePiece(new Position(0, 3), GamePieceFactory.createPiece(PieceType.GIRAFFE, PieceColor.BLACK));
-            logic.placePiece(new Position(0, 0), GamePieceFactory.createPiece(PieceType.ELEPHANT, PieceColor.WHITE));
-            logic.placePiece(new Position(2, 3), GamePieceFactory.createPiece(PieceType.ELEPHANT, PieceColor.BLACK));
-            logic.placePiece(new Position(1, 1), GamePieceFactory.createPiece(PieceType.CHICK, PieceColor.WHITE));
-            logic.placePiece(new Position(1, 2), GamePieceFactory.createPiece(PieceType.CHICK, PieceColor.BLACK));
-        }
-        catch (IllegalMoveException ex) {
+            logic.prepareBoard();
+        } catch (IllegalMoveException ex) {
             System.err.println("Something when wrong when initializing the game engine");
             System.exit(1);
         }
@@ -80,15 +73,30 @@ public class GameEngine {
     }
 
     private class BoardLogic {
-         void movePiece(Position from, Position to) throws IllegalMoveException {
+        void prepareBoard() throws IllegalMoveException{
+            placePiece(new Position(1, 0), GamePieceFactory.createPiece(PieceType.LION, PieceColor.WHITE));
+            placePiece(new Position(1, 3), GamePieceFactory.createPiece(PieceType.LION, PieceColor.BLACK));
+            placePiece(new Position(2, 0), GamePieceFactory.createPiece(PieceType.GIRAFFE, PieceColor.WHITE));
+            placePiece(new Position(0, 3), GamePieceFactory.createPiece(PieceType.GIRAFFE, PieceColor.BLACK));
+            placePiece(new Position(0, 0), GamePieceFactory.createPiece(PieceType.ELEPHANT, PieceColor.WHITE));
+            placePiece(new Position(2, 3), GamePieceFactory.createPiece(PieceType.ELEPHANT, PieceColor.BLACK));
+            placePiece(new Position(1, 1), GamePieceFactory.createPiece(PieceType.CHICK, PieceColor.WHITE));
+            placePiece(new Position(1, 2), GamePieceFactory.createPiece(PieceType.CHICK, PieceColor.BLACK));
+        }
+        void movePiece(Position from, Position to) throws IllegalMoveException {
             if (board.getPiece(to) != null && board.getPiece(from).getColor() == board.getPiece(to).getColor()) {
-                throw new IllegalMoveException("You cannot take your own piece.");
+                throw new IllegalMoveException("You cannot capture your own piece.");
             } else if (board.getPiece(from).canMove(Position.Subtract(to, from))) {
                 if (board.getPiece(to) != null) {
-                    PieceType type = board.getPiece(to).getType() == PieceType.CHICKEN ? PieceType.CHICK : board.getPiece(to).getType();
-                    board.addCapturedPiece(type, PieceColor.opposite(board.getPiece(to).getColor()));
+                    if (board.getPiece(to).getType() == PieceType.LION) {
+                        // Game end, win
+                    }
+                    else {
+                        PieceType type = board.getPiece(to).getType() == PieceType.CHICKEN ? PieceType.CHICK : board.getPiece(to).getType();
+                        board.addCapturedPiece(type, PieceColor.opposite(board.getPiece(to).getColor()));
+                    }
                 }
-                // Turn chick into chicken if it reaches the end of the board.
+                // Turn chick into chicken if it reaches the end or the beginning of the board.
                 if (board.getPiece(from).getType() == PieceType.CHICK && (to.y == board.getSize().y - 1 || to.y == 0)){
                     board.setPiece(to, GamePieceFactory.createPiece(PieceType.CHICKEN,board.getPiece(from).getColor()));
                 }
