@@ -115,7 +115,10 @@ public class Game extends AppCompatActivity {
                     button = getCapturedPieceButton(change.getPiece().getColor(),change.getPiece().getType(),change.getPosition().x);
                     button.setVisibility(View.INVISIBLE);
                     break;
-
+                case WIN:
+                    String winner = (change.getPiece().getColor() == PieceColor.WHITE) ? "White" : "Black";
+                    Toast.makeText(getApplicationContext(), winner + " wins!", Toast.LENGTH_SHORT).show();
+                    break;
             }
         }
     }

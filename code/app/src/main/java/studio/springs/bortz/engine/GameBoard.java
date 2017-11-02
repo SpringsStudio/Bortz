@@ -23,8 +23,13 @@ import studio.springs.bortz.engine.pieces.PieceType;
         changes = new LinkedList<>();
     }
     GamePiece getPiece(Position pos){
-                                            return pieceBoard[pos.x][pos.y];
-                                                                            }
+        if (pos.MoreThan(Position.Subtract(getSize(), new Position(1,1))) || pos.LessThan(new Position(0,0))){
+            return null;
+        }
+        else {
+            return pieceBoard[pos.x][pos.y];
+        }
+    }
     void setPiece(Position pos, GamePiece piece){
         if (piece != null){
             changes.add(new GameChange(GameChange.ChangeType.PIECE_ADDED, pos, piece));

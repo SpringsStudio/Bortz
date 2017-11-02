@@ -2,6 +2,7 @@ package studio.springs.bortz.engine;
 
 import java.util.Queue;
 
+import studio.springs.bortz.Game;
 import studio.springs.bortz.engine.pieces.GamePiece;
 import studio.springs.bortz.engine.pieces.GamePieceFactory;
 import studio.springs.bortz.engine.pieces.PieceColor;
@@ -84,26 +85,48 @@ public class GameEngine {
             placePiece(new Position(1, 2), GamePieceFactory.createPiece(PieceType.CHICK, PieceColor.BLACK));
         }
         void movePiece(Position from, Position to) throws IllegalMoveException {
-            if (board.getPiece(to) != null && board.getPiece(from).getColor() == board.getPiece(to).getColor()) {
+            final GamePiece toPiece = board.getPiece(to);
+            final GamePiece fromPiece = board.getPiece(from);
+            boolean gameWon = false;
+
+            if (toPiece != null && fromPiece.getColor() == toPiece.getColor()) {
                 throw new IllegalMoveException("You cannot capture your own piece.");
-            } else if (board.getPiece(from).canMove(Position.Subtract(to, from))) {
-                if (board.getPiece(to) != null) {
-                    if (board.getPiece(to).getType() == PieceType.LION) {
-                        // Game end, win
+            } else if (fromPiece.canMove(Position.Subtract(to, from))) {
+                if (toPiece != null) {
+                    if (toPiece.getType() == PieceType.LION) {
+                        gameWon = true;
                     }
                     else {
-                        PieceType type = board.getPiece(to).getType() == PieceType.CHICKEN ? PieceType.CHICK : board.getPiece(to).getType();
-                        board.addCapturedPiece(type, PieceColor.opposite(board.getPiece(to).getColor()));
+                        PieceType type = toPiece.getType() == PieceType.CHICKEN ? PieceType.CHICK : toPiece.getType();
+                        board.addCapturedPiece(type, PieceColor.opposite(toPiece.getColor()));
+                    }
+                }
+                // If white lion reaches the end or black lion reaches beginning check if they are in danger, if not win.
+                if (fromPiece.getType() == PieceType.LION && (
+                        fromPiece.getColor() == PieceColor.BLACK && to.y == 0 ||
+                        fromPiece.getColor() == PieceColor.WHITE && to.y == board.getSize().y - 1)){
+                    gameWon = true;
+                    for (int xi = -1; xi < 2; xi++){
+                        for (int yi = -1; yi < 2; yi++){
+                            GamePiece checkPiece = board.getPiece(Position.Add(to, new Position(xi,yi)));
+                            if (checkPiece != null && fromPiece.getColor() != checkPiece.getColor() &&
+                                    checkPiece.canMove(new Position(-xi, -yi))){
+                                gameWon = false;
+                                break;
+                            }
+                        }
                     }
                 }
                 // Turn chick into chicken if it reaches the end or the beginning of the board.
-                if (board.getPiece(from).getType() == PieceType.CHICK && (to.y == board.getSize().y - 1 || to.y == 0)){
-                    board.setPiece(to, GamePieceFactory.createPiece(PieceType.CHICKEN,board.getPiece(from).getColor()));
+                if (fromPiece.getType() == PieceType.CHICK && (to.y == board.getSize().y - 1 || to.y == 0)){
+                    board.setPiece(to, GamePieceFactory.createPiece(PieceType.CHICKEN,fromPiece.getColor()));
                 }
                 else {
-                    board.setPiece(to, board.getPiece(from));
+                    board.setPiece(to, fromPiece);
                 }
                 board.setPiece(from, null);
+
+                if (gameWon) board.changes.add(new GameChange(GameChange.ChangeType.WIN, new Position(-1,-1), fromPiece));
             } else throw new IllegalMoveException("This piece cannot move like this");
         }
         void placePiece(Position pos, GamePiece piece) throws IllegalMoveException {
