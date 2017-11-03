@@ -3,6 +3,9 @@ package studio.springs.bortz;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.ScaleDrawable;
+import android.graphics.drawable.VectorDrawable;
+import android.view.Gravity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -67,7 +70,9 @@ public class ThemeManager {
         drawableMap = new HashMap<>();
         for (PieceType type : PieceType.values()) {
             drawableMap.put(type,new Drawable[guidesEnabled ? 2 : 1]);
-            drawableMap.get(type)[0] = res.getDrawable(resourcesMap.get(type));
+            ScaleDrawable symbol = new ScaleDrawable(res.getDrawable(resourcesMap.get(type)), Gravity.CENTER,1,1);
+            symbol.setLevel(guidesEnabled ? 7500 : 9000);
+            drawableMap.get(type)[0] = symbol;
             if (guidesEnabled) drawableMap.get(type)[1] = res.getDrawable(guidesMap.get(type));
         }
     }
