@@ -4,7 +4,6 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ScaleDrawable;
-import android.graphics.drawable.VectorDrawable;
 import android.view.Gravity;
 
 import java.util.HashMap;
