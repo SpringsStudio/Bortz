@@ -14,7 +14,8 @@ import studio.springs.bortz.engine.pieces.PieceType;
 
 public class ThemeManager {
     enum Theme {
-        KANJI
+        KANJI,
+        CHESS
     }
 
     static class GuidesMap {
@@ -42,11 +43,18 @@ public class ThemeManager {
                 resourceMap.put(PieceType.GIRAFFE, R.drawable.ic_giraffe_kanji);
                 resourceMap.put(PieceType.ELEPHANT, R.drawable.ic_elephant_kanji);
                 break;
+            case CHESS:
+                resourceMap.put(PieceType.LION, R.drawable.ic_lion_chess);
+                resourceMap.put(PieceType.CHICK, R.drawable.ic_chick_chess);
+                resourceMap.put(PieceType.CHICKEN, R.drawable.ic_chicken_chess);
+                resourceMap.put(PieceType.GIRAFFE, R.drawable.ic_giraffe_chess);
+                resourceMap.put(PieceType.ELEPHANT, R.drawable.ic_elephant_chess);
+                break;
         }
         return resourceMap;
     }
 
-    public static final Theme DEFAULT_THEME = Theme.KANJI;
+    public static final Theme DEFAULT_THEME = Theme.CHESS;
     public static final boolean DEFAULT_GUIDES = true;
 
     private final Theme theme;
