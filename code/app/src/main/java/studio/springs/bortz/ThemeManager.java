@@ -6,7 +6,9 @@ import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ScaleDrawable;
 import android.view.Gravity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import studio.springs.bortz.engine.pieces.PieceType;
@@ -85,4 +87,10 @@ public class ThemeManager {
     }
 
     public LayerDrawable getPieceDrawable(PieceType type){return new LayerDrawable(drawableMap.get(type));}
+
+    public List<String> getThemesNames() {
+        List<String> str = new ArrayList<String>();
+        for (Theme th : theme.values()) { str.add(th.toString()); }
+        return str;
+    }
 }
