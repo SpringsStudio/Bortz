@@ -13,11 +13,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
-
 public class SettingsMenu extends AppCompatActivity implements AdapterView.OnItemClickListener, CompoundButton.OnCheckedChangeListener {
 
-    private ThemeManager themeManager = new ThemeManager();
     ListView listView;
     Switch guidesSwitch;
     SharedPreferences pref;
@@ -29,14 +26,14 @@ public class SettingsMenu extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_settings_menu);
         pref =  getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
         editor =  pref.edit();
-        List<String> themeNames = themeManager.getThemesNames();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, themeNames);
-
-        guidesSwitch = (Switch) findViewById(R.id.switch1);
+        guidesSwitch = findViewById(R.id.switch1);
         guidesSwitch.setOnCheckedChangeListener(this);
 
-        listView = (ListView) findViewById(R.id.listView1);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, ThemeManager.getThemesNames());
+
+        listView = findViewById(R.id.listView1);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
         listView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
