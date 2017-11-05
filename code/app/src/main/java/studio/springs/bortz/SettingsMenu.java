@@ -11,13 +11,13 @@ import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class SettingsMenu extends AppCompatActivity implements AdapterView.OnItemClickListener, CompoundButton.OnCheckedChangeListener {
+public class SettingsMenu extends AppCompatActivity implements AdapterView.OnItemClickListener,
+        CompoundButton.OnCheckedChangeListener {
 
     ListView listView;
     Switch guidesSwitch;
-    SharedPreferences pref;
+    public static SharedPreferences pref;
     SharedPreferences.Editor editor;
 
     @Override
@@ -37,23 +37,46 @@ public class SettingsMenu extends AppCompatActivity implements AdapterView.OnIte
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
         listView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
+        loadPreferences();
+        listView.setSelector(android.R.color.darker_gray);
 
+    }
 
+    private void loadPreferences(){
+        boolean guidesEnabled = pref.getBoolean("GUIDES", ThemeManager.DEFAULT_GUIDES);
+        int themeID = pref.getInt("THEME", ThemeManager.DEFAULT_THEME.getValue());
+        System.out.println( ThemeManager.DEFAULT_THEME.getValue());
+        System.out.println( ThemeManager.DEFAULT_GUIDES);
+        if (guidesEnabled)
+            guidesSwitch.setChecked(true);
+        else
+            guidesSwitch.setChecked(false);
+        listView.setItemChecked(themeID, true);
+    }
 
+    private void savePreferences(String keyVal, int themeID){
+        editor.putInt("THEME", themeID);
+        editor.commit();
+    }
+
+    private void savePreferences(String keyVal, boolean guidesEnabled){
+        editor.putBoolean("GUIDES", guidesEnabled);
+        editor.commit();
     }
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id ){
         TextView text = (TextView) view;
-        Toast.makeText(this, text.getText() ,Toast.LENGTH_LONG).show();
-        listView.setSelector(android.R.color.darker_gray);
+        savePreferences("THEME", position);
+        //Toast.makeText(this, text.getText()  ,Toast.LENGTH_LONG).show();
+        System.out.println(position);
     }
 
     @Override
     public void onCheckedChanged(CompoundButton  buttonView, boolean isChecked){
         if (isChecked)
-            Toast.makeText(this, "guides enabled" ,Toast.LENGTH_LONG).show();
-        else
-            Toast.makeText(this, "guides disabled" ,Toast.LENGTH_LONG).show();
+           savePreferences("GUIDES", true);
+       else
+           savePreferences("GUIDES", false);
     }
 
 }
