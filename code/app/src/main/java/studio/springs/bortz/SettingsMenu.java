@@ -20,14 +20,15 @@ public class SettingsMenu extends AppCompatActivity implements AdapterView.OnIte
     private ThemeManager themeManager = new ThemeManager();
     ListView listView;
     Switch guidesSwitch;
-    SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-    SharedPreferences.Editor editor = pref.edit();
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_menu);
-
+        pref =  getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+        editor =  pref.edit();
         List<String> themeNames = themeManager.getThemesNames();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, themeNames);
