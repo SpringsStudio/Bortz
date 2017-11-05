@@ -58,7 +58,10 @@
                         style="@style/Widget.AppCompat.ListView"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="15" />
+                        android:layout_weight="15"
+                        android:choiceMode="singleChoice"
+                        android:listSelector="#666666"
+                         />
                 </LinearLayout>
 
                 <android.support.constraint.ConstraintLayout
