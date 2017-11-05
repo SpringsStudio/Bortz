@@ -44,8 +44,8 @@ public class SettingsMenu extends AppCompatActivity implements AdapterView.OnIte
 
     private void loadPreferences(){
         boolean guidesEnabled = pref.getBoolean("GUIDES", ThemeManager.DEFAULT_GUIDES);
-        int themeID = pref.getInt("THEME", ThemeManager.DEFAULT_THEME.getValue());
-        System.out.println( ThemeManager.DEFAULT_THEME.getValue());
+        int themeID = pref.getInt("THEME", ThemeManager.DEFAULT_THEME.ordinal());
+        System.out.println( ThemeManager.DEFAULT_THEME.ordinal());
         System.out.println( ThemeManager.DEFAULT_GUIDES);
         if (guidesEnabled)
             guidesSwitch.setChecked(true);
@@ -73,10 +73,7 @@ public class SettingsMenu extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onCheckedChanged(CompoundButton  buttonView, boolean isChecked){
-        if (isChecked)
-           savePreferences("GUIDES", true);
-       else
-           savePreferences("GUIDES", false);
+        savePreferences("GUIDES", isChecked);
     }
 
 }

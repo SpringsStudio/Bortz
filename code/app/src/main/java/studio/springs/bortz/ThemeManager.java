@@ -13,18 +13,9 @@ import studio.springs.bortz.engine.pieces.PieceType;
 
 public class ThemeManager {
     enum Theme {
-        KANJI(0),
-        CHESS(1);
+        KANJI,
+        CHESS;
 
-        private int value;
-
-        Theme(int Value){
-            this.value = Value;
-        }
-
-        public int getValue(){
-            return value;
-        }
     }
 
     static class GuidesMap {
