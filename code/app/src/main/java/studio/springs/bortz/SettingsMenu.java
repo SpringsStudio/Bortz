@@ -17,15 +17,14 @@ public class SettingsMenu extends AppCompatActivity implements AdapterView.OnIte
 
     ListView listView;
     Switch guidesSwitch;
-    public static SharedPreferences pref;
-    SharedPreferences.Editor editor;
+    SettingsCapture settingsCapture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_menu);
-        pref =  getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-        editor =  pref.edit();
+
+        settingsCapture = SettingsCapture.getInstance(this);
 
         guidesSwitch = findViewById(R.id.switch1);
         guidesSwitch.setOnCheckedChangeListener(this);
@@ -37,43 +36,20 @@ public class SettingsMenu extends AppCompatActivity implements AdapterView.OnIte
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
         listView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
-        loadPreferences();
         listView.setSelector(android.R.color.darker_gray);
 
-    }
+        guidesSwitch.setChecked(settingsCapture.getGuides());
+        listView.setItemChecked(settingsCapture.getTheme().ordinal(), true);
 
-    private void loadPreferences(){
-        boolean guidesEnabled = pref.getBoolean("GUIDES", ThemeManager.DEFAULT_GUIDES);
-        int themeID = pref.getInt("THEME", ThemeManager.DEFAULT_THEME.ordinal());
-        System.out.println( ThemeManager.DEFAULT_THEME.ordinal());
-        System.out.println( ThemeManager.DEFAULT_GUIDES);
-        if (guidesEnabled)
-            guidesSwitch.setChecked(true);
-        else
-            guidesSwitch.setChecked(false);
-        listView.setItemChecked(themeID, true);
-    }
-
-    private void savePreferences(String keyVal, int themeID){
-        editor.putInt("THEME", themeID);
-        editor.commit();
-    }
-
-    private void savePreferences(String keyVal, boolean guidesEnabled){
-        editor.putBoolean("GUIDES", guidesEnabled);
-        editor.commit();
     }
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id ){
-        TextView text = (TextView) view;
-        savePreferences("THEME", position);
-        //Toast.makeText(this, text.getText()  ,Toast.LENGTH_LONG).show();
-        System.out.println(position);
+        settingsCapture.setTheme(position);
     }
 
     @Override
     public void onCheckedChanged(CompoundButton  buttonView, boolean isChecked){
-        savePreferences("GUIDES", isChecked);
+        settingsCapture.setGuides(isChecked);
     }
 
 }
