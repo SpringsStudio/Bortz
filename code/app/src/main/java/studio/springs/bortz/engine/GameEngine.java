@@ -2,7 +2,6 @@ package studio.springs.bortz.engine;
 
 import java.util.Queue;
 
-import studio.springs.bortz.Game;
 import studio.springs.bortz.engine.pieces.GamePiece;
 import studio.springs.bortz.engine.pieces.GamePieceFactory;
 import studio.springs.bortz.engine.pieces.PieceColor;

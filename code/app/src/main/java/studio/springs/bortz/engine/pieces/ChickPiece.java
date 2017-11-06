@@ -3,6 +3,9 @@ package studio.springs.bortz.engine.pieces;
 import studio.springs.bortz.engine.Position;
 
 public class ChickPiece extends GamePiece {
+    ChickPiece() {
+        type = PieceType.CHICK;
+    }
     @Override
     public boolean canMove(Position vector) {
         switch(getColor()){
@@ -13,10 +16,5 @@ public class ChickPiece extends GamePiece {
             default:
                 return false;
         }
-    }
-
-    @Override
-    public PieceType getType() {
-        return PieceType.CHICK;
     }
 }
