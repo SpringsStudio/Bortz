@@ -116,9 +116,11 @@ public class GameEngine {
                         }
                     }
                 }
-                // Turn chick into chicken if it reaches the end or the beginning of the board.
-                if (fromPiece.getType() == PieceType.CHICK && (to.y == board.getSize().y - 1 || to.y == 0)){
-                    board.setPiece(to, GamePieceFactory.createPiece(PieceType.CHICKEN,fromPiece.getColor()));
+                // Promote piece if it reaches the end or the beginning of the board.
+                if (((to.y == board.getSize().y - 1 && fromPiece.getColor() == PieceColor.WHITE ) ||
+                        (to.y == 0 && fromPiece.getColor() == PieceColor.BLACK)) &&
+                        GamePiece.promotionOf(fromPiece.getType()) != null){
+                    board.setPiece(to, fromPiece.promote());
                 }
                 else {
                     board.setPiece(to, fromPiece);
