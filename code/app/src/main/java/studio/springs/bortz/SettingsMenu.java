@@ -40,7 +40,7 @@ public class SettingsMenu extends AppCompatActivity implements AdapterView.OnIte
     }
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id ){
-        settingsCapture.setTheme(position);
+        settingsCapture.setTheme(ThemeManager.Theme.values()[position]);
     }
 
     @Override

@@ -5,12 +5,11 @@ import android.content.SharedPreferences;
 
 public class SettingsCapture {
 
-    private static SettingsCapture settingsCapture;
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
 
-    private final boolean DEFAULT_GUIDES = true;
-    private final ThemeManager.Theme DEFAULT_THEME = ThemeManager.Theme.CHESS;
+    public static final boolean DEFAULT_GUIDES = true;
+    public static final ThemeManager.Theme DEFAULT_THEME = ThemeManager.Theme.CHESS;
 
     protected SettingsCapture(Context context){
         pref = context.getSharedPreferences("MyPref", Context.MODE_PRIVATE);
@@ -21,8 +20,8 @@ public class SettingsCapture {
         return ThemeManager.Theme.values()[pref.getInt("THEME", DEFAULT_THEME.ordinal())];
     }
 
-    public void setTheme(int themeID){
-        editor.putInt("THEME", themeID);
+    public void setTheme(ThemeManager.Theme theme){
+        editor.putInt("THEME", theme.ordinal());
         editor.commit();
     }
 
