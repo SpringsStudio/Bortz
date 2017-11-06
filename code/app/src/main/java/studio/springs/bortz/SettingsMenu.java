@@ -14,14 +14,14 @@ public class SettingsMenu extends AppCompatActivity implements AdapterView.OnIte
 
     ListView listView;
     Switch guidesSwitch;
-    SettingsCapture settingsCapture;
+    private SettingsCapture settingsCapture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_menu);
 
-        settingsCapture = SettingsCapture.getInstance(this);
+        settingsCapture = new SettingsCapture(this);
 
         guidesSwitch = findViewById(R.id.switch1);
         guidesSwitch.setOnCheckedChangeListener(this);
@@ -34,7 +34,6 @@ public class SettingsMenu extends AppCompatActivity implements AdapterView.OnIte
         listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         listView.setItemChecked(settingsCapture.getTheme().ordinal(), true);
         listView.setOnItemClickListener(this);
-        listView.setSelector(android.R.color.darker_gray);
 
         guidesSwitch.setChecked(settingsCapture.getGuides());
 

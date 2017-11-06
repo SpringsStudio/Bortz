@@ -9,13 +9,7 @@ public class SettingsCapture {
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
 
-    public static SettingsCapture getInstance(Context context){
-        if (settingsCapture == null)
-            settingsCapture = new SettingsCapture(context);
-        return settingsCapture;
-    }
-
-    private SettingsCapture(Context context){
+    protected SettingsCapture(Context context){
         pref = context.getSharedPreferences("MyPref", Context.MODE_PRIVATE);
         editor = pref.edit();
     }

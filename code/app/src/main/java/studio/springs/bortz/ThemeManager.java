@@ -1,5 +1,7 @@
 package studio.springs.bortz;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -57,21 +59,16 @@ public class ThemeManager {
     public static final Theme DEFAULT_THEME = Theme.CHESS;
     public static final boolean DEFAULT_GUIDES = true;
 
-    private final Theme theme;
-    private final boolean guidesEnabled;
-    private final Map<PieceType,Integer> resourcesMap;
+    private Theme theme;
+    private boolean guidesEnabled;
+    private Map<PieceType,Integer> resourcesMap;
     private final GuidesMap guidesMap;
     private Map<PieceType,Drawable[]> drawableMap;
+    private SettingsCapture settingsCapture;
 
     public ThemeManager() {
-        if (false) { //Check if setting are set
 
-        } else {
-            theme = DEFAULT_THEME;
-            guidesEnabled = DEFAULT_GUIDES;
-        }
         guidesMap = new GuidesMap();
-        resourcesMap = getResourceMap(theme);
     }
 
     public void createDrawableMap(Resources res){
@@ -94,4 +91,11 @@ public class ThemeManager {
         }
         return names;
     }
+
+    public void loadThemeFromSettings(SettingsCapture capture){
+        theme = Theme.values()[capture.getTheme().ordinal()];
+        guidesEnabled = capture.getGuides();
+        resourcesMap = getResourceMap(theme);
+    }
+
 }

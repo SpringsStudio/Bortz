@@ -21,11 +21,14 @@ public class Game extends AppCompatActivity {
     private Resources res;
     private final GameEngine engine = new GameEngine();
     private ThemeManager tmanager = new ThemeManager();
+    private SettingsCapture settingsCapture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        settingsCapture = new SettingsCapture(this);
+        tmanager.loadThemeFromSettings(settingsCapture);
         res = getResources();
         tmanager.createDrawableMap(res);
         prepareView();
