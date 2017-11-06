@@ -9,13 +9,16 @@ public class SettingsCapture {
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
 
+    private final boolean DEFAULT_GUIDES = true;
+    private final ThemeManager.Theme DEFAULT_THEME = ThemeManager.Theme.CHESS;
+
     protected SettingsCapture(Context context){
         pref = context.getSharedPreferences("MyPref", Context.MODE_PRIVATE);
         editor = pref.edit();
     }
 
     public ThemeManager.Theme getTheme(){
-        return ThemeManager.Theme.values()[pref.getInt("THEME", ThemeManager.DEFAULT_THEME.ordinal())];
+        return ThemeManager.Theme.values()[pref.getInt("THEME", DEFAULT_THEME.ordinal())];
     }
 
     public void setTheme(int themeID){
@@ -24,7 +27,7 @@ public class SettingsCapture {
     }
 
     public boolean getGuides(){
-        return pref.getBoolean("GUIDES", ThemeManager.DEFAULT_GUIDES);
+        return pref.getBoolean("GUIDES", DEFAULT_GUIDES);
     }
 
     public void setGuides(boolean guidesEnabled){

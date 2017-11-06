@@ -56,9 +56,6 @@ public class ThemeManager {
         return resourceMap;
     }
 
-    public static final Theme DEFAULT_THEME = Theme.CHESS;
-    public static final boolean DEFAULT_GUIDES = true;
-
     private Theme theme;
     private boolean guidesEnabled;
     private Map<PieceType,Integer> resourcesMap;
@@ -66,8 +63,11 @@ public class ThemeManager {
     private Map<PieceType,Drawable[]> drawableMap;
     private SettingsCapture settingsCapture;
 
-    public ThemeManager() {
-
+    public ThemeManager(Context context) {
+        settingsCapture = new SettingsCapture(context);
+        theme = Theme.values()[settingsCapture.getTheme().ordinal()];
+        guidesEnabled = settingsCapture.getGuides();
+        resourcesMap = getResourceMap(theme);
         guidesMap = new GuidesMap();
     }
 
@@ -90,12 +90,6 @@ public class ThemeManager {
             names[i] = Theme.values()[i].name().charAt(0) + Theme.values()[i].name().substring(1).toLowerCase();
         }
         return names;
-    }
-
-    public void loadThemeFromSettings(SettingsCapture capture){
-        theme = Theme.values()[capture.getTheme().ordinal()];
-        guidesEnabled = capture.getGuides();
-        resourcesMap = getResourceMap(theme);
     }
 
 }

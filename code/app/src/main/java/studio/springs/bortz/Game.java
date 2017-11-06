@@ -20,15 +20,13 @@ import studio.springs.bortz.engine.pieces.PieceType;
 public class Game extends AppCompatActivity {
     private Resources res;
     private final GameEngine engine = new GameEngine();
-    private ThemeManager tmanager = new ThemeManager();
-    private SettingsCapture settingsCapture;
+    private ThemeManager tmanager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        settingsCapture = new SettingsCapture(this);
-        tmanager.loadThemeFromSettings(settingsCapture);
+        tmanager = new ThemeManager(this);
         res = getResources();
         tmanager.createDrawableMap(res);
         prepareView();
