@@ -13,6 +13,7 @@ public class BoardLogic {
     GameRecord record;
     public BoardLogic(GameBoard board) {
         this.board = board;
+        record = new GameRecord();
     }
     static public GameBoard prepareBoard() {
         GameBoard board = new GameBoard(3,4);
