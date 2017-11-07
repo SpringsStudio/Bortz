@@ -10,6 +10,7 @@ import studio.springs.bortz.engine.pieces.PieceType;
 
 public class BoardLogic {
     private GameBoard board;
+    GameRecord record;
     public BoardLogic(GameBoard board) {
         this.board = board;
     }
@@ -30,6 +31,8 @@ public class BoardLogic {
         final GamePiece toPiece = board.getPiece(to);
         final GamePiece fromPiece = board.getPiece(from);
         boolean gameWon = false;
+        boolean promotion = false;
+
 
         if (toPiece != null && fromPiece.getColor() == toPiece.getColor()) {
             throw new IllegalMoveException("You cannot capture your own piece.");
@@ -46,7 +49,7 @@ public class BoardLogic {
             // If white lion reaches the end or black lion reaches beginning check if they are in danger, if not win.
             if (fromPiece.getType() == PieceType.LION && (
                     fromPiece.getColor() == PieceColor.BLACK && to.y == 0 ||
-                            fromPiece.getColor() == PieceColor.WHITE && to.y == board.getSize().y - 1)){
+                    fromPiece.getColor() == PieceColor.WHITE && to.y == board.getSize().y - 1)){
                 gameWon = true;
                 for (int xi = -1; xi < 2; xi++){
                     for (int yi = -1; yi < 2; yi++){
@@ -64,12 +67,14 @@ public class BoardLogic {
                     (to.y == 0 && fromPiece.getColor() == PieceColor.BLACK)) &&
                     GamePiece.promotionOf(fromPiece.getType()) != null){
                 board.setPiece(to, fromPiece.promote());
+                promotion = true;
             }
             else {
                 board.setPiece(to, fromPiece);
             }
             board.setPiece(from, null);
 
+            record.addMove(new GameMove(fromPiece.getType(),from, GameMove.MoveType.SIMPLE_MOVEMENT,to,promotion));
             if (gameWon) board.changes.add(new GameChange(GameChange.ChangeType.WIN, new Position(-1,-1), fromPiece));
         } else throw new IllegalMoveException("This piece cannot move like this");
     }
@@ -83,6 +88,7 @@ public class BoardLogic {
         else {
             board.setPiece(pos, piece);
             board.removeCapturedPiece(piece.getType(), piece.getColor());
+            record.addMove(new GameMove(piece.getType(),null, GameMove.MoveType.DROP,pos,false));
         }
     }
 }
