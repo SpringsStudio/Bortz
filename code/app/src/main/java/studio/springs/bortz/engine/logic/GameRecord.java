@@ -1,10 +1,10 @@
 package studio.springs.bortz.engine.logic;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameRecord {
-    Queue<GameMove> moves = new LinkedList<>();
+    List<GameMove> moves = new ArrayList<>();
 
     public void addMove(GameMove move){
         moves.add(move);
