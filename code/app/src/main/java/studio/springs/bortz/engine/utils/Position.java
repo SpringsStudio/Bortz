@@ -1,4 +1,4 @@
-package studio.springs.bortz.engine;
+package studio.springs.bortz.engine.utils;
 
 public class Position {
     final public int x;

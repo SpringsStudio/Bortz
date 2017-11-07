@@ -1,9 +1,11 @@
-package studio.springs.bortz;
+package studio.springs.bortz.ui;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import studio.springs.bortz.R;
 
 public class TrainingMenu extends AppCompatActivity {
     @Override

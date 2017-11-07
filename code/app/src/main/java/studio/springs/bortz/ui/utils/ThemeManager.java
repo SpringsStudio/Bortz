@@ -1,4 +1,4 @@
-package studio.springs.bortz;
+package studio.springs.bortz.ui.utils;
 
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -9,10 +9,11 @@ import android.view.Gravity;
 import java.util.HashMap;
 import java.util.Map;
 
+import studio.springs.bortz.R;
 import studio.springs.bortz.engine.pieces.PieceType;
 
 public class ThemeManager {
-    enum Theme {
+    public enum Theme {
         KANJI,
         CHESS;
 

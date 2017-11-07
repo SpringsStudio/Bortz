@@ -1,8 +1,8 @@
-package studio.springs.bortz.engine.board;
+package studio.springs.bortz.engine.logic;
 
 import studio.springs.bortz.engine.GameChange;
-import studio.springs.bortz.engine.IllegalMoveException;
-import studio.springs.bortz.engine.Position;
+import studio.springs.bortz.engine.utils.IllegalMoveException;
+import studio.springs.bortz.engine.utils.Position;
 import studio.springs.bortz.engine.pieces.GamePiece;
 import studio.springs.bortz.engine.pieces.GamePieceFactory;
 import studio.springs.bortz.engine.pieces.PieceColor;
@@ -43,8 +43,10 @@ public class BoardLogic {
                     gameWon = true;
                 }
                 else {
-                    PieceType type = toPiece.getType() == PieceType.CHICKEN ? PieceType.CHICK : toPiece.getType();
-                    board.addCapturedPiece(type, PieceColor.opposite(toPiece.getColor()));
+                    GamePiece demotedPiece = toPiece.demote();
+                    GamePiece capturedPiece = demotedPiece == null ? toPiece : demotedPiece;
+
+                    board.addCapturedPiece(capturedPiece.swapColor());
                 }
             }
             // If white lion reaches the end or black lion reaches beginning check if they are in danger, if not win.
@@ -66,7 +68,7 @@ public class BoardLogic {
             // Promote piece if it reaches the end or the beginning of the board.
             if (((to.y == board.getSize().y - 1 && fromPiece.getColor() == PieceColor.WHITE ) ||
                     (to.y == 0 && fromPiece.getColor() == PieceColor.BLACK)) &&
-                    GamePiece.promotionOf(fromPiece.getType()) != null){
+                    fromPiece.promote() != null){
                 board.setPiece(to, fromPiece.promote());
                 promotion = true;
             }
@@ -83,12 +85,12 @@ public class BoardLogic {
         if (board.getPiece(pos) != null) {
             throw new IllegalMoveException("A piece cannot be placed on a square that is already taken");
         }
-        else if (board.countCapturedPieces(piece.getType(), piece.getColor()) < 1){
-            throw new IllegalMoveException("You do not have this type of piece captured");
+        else if (board.countCapturedPieces(piece) < 1){
+            throw new IllegalMoveException("You have " + board.countCapturedPieces(piece) + " of this type of piece captured");
         }
         else {
             board.setPiece(pos, piece);
-            board.removeCapturedPiece(piece.getType(), piece.getColor());
+            board.removeCapturedPiece(piece);
             record.addMove(new GameMove(piece.getType(),null, GameMove.MoveType.DROP,pos,false));
         }
     }

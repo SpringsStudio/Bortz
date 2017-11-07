@@ -1,4 +1,4 @@
-package studio.springs.bortz;
+package studio.springs.bortz.ui;
 
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -10,12 +10,15 @@ import android.widget.Toast;
 
 import java.util.Queue;
 
+import studio.springs.bortz.R;
 import studio.springs.bortz.engine.GameChange;
 import studio.springs.bortz.engine.GameEngine;
-import studio.springs.bortz.engine.IllegalMoveException;
-import studio.springs.bortz.engine.Position;
+import studio.springs.bortz.engine.utils.IllegalMoveException;
+import studio.springs.bortz.engine.utils.Position;
 import studio.springs.bortz.engine.pieces.PieceColor;
 import studio.springs.bortz.engine.pieces.PieceType;
+import studio.springs.bortz.ui.utils.SettingsCapture;
+import studio.springs.bortz.ui.utils.ThemeManager;
 
 public class Game extends AppCompatActivity {
     private Resources res;

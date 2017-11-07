@@ -1,6 +1,7 @@
 package studio.springs.bortz.engine;
 
 import studio.springs.bortz.engine.pieces.GamePiece;
+import studio.springs.bortz.engine.utils.Position;
 
 public class GameChange {
     public enum ChangeType {

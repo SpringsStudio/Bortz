@@ -1,6 +1,4 @@
-package studio.springs.bortz.engine.board;
-
-import android.util.Pair;
+package studio.springs.bortz.engine.logic;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -8,18 +6,15 @@ import java.util.Map;
 import java.util.Queue;
 
 import studio.springs.bortz.engine.GameChange;
-import studio.springs.bortz.engine.Position;
+import studio.springs.bortz.engine.utils.Position;
 import studio.springs.bortz.engine.pieces.GamePiece;
-import studio.springs.bortz.engine.pieces.GamePieceFactory;
-import studio.springs.bortz.engine.pieces.PieceColor;
-import studio.springs.bortz.engine.pieces.PieceType;
 
 public class GameBoard {
     private GamePiece[][] pieceBoard;
-    private Map<Pair<PieceColor,PieceType>,Integer> capturedPieces;
+    private Map<GamePiece,Integer> capturedPieces;
     public Queue<GameChange> changes;
 
-        GameBoard(int width, int height) {
+    GameBoard(int width, int height) {
         pieceBoard = new GamePiece[width][height];
         capturedPieces = new HashMap<>();
         changes = new LinkedList<>();
@@ -44,18 +39,18 @@ public class GameBoard {
     public Position getSize(){
         return new Position(pieceBoard.length, pieceBoard[0].length);
     }
-    public Integer countCapturedPieces(PieceType type, PieceColor color){
-        final Integer count = capturedPieces.get(new Pair<>(color, type));
+    public Integer countCapturedPieces(GamePiece piece){
+        final Integer count = capturedPieces.get(piece);
         return count == null ? 0 : count;
     }
-    void removeCapturedPiece(PieceType type, PieceColor color){
-        capturedPieces.put(new Pair<>(color, type), countCapturedPieces(type, color) - 1);
+    void removeCapturedPiece(GamePiece piece){
+        capturedPieces.put(piece, countCapturedPieces(piece) - 1);
         changes.add(new GameChange(GameChange.ChangeType.PIECE_PLACED,
-                new Position(countCapturedPieces(type, color),-1), GamePieceFactory.createPiece(type, color)));
+                new Position(countCapturedPieces(piece),-1), piece));
     }
-    void addCapturedPiece(PieceType type, PieceColor color){
+    void addCapturedPiece(GamePiece piece){
         changes.add(new GameChange(GameChange.ChangeType.PIECE_CAPTURED,
-                new Position(countCapturedPieces(type, color),-1), GamePieceFactory.createPiece(type, color)));
-        capturedPieces.put(new Pair<>(color, type), countCapturedPieces(type, color) + 1);
+                new Position(countCapturedPieces(piece),-1), piece));
+        capturedPieces.put(piece, countCapturedPieces(piece) + 1);
     }
 }

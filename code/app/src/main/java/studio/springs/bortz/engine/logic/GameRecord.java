@@ -1,4 +1,4 @@
-package studio.springs.bortz.engine.board;
+package studio.springs.bortz.engine.logic;
 
 import java.util.LinkedList;
 import java.util.Queue;

@@ -1,4 +1,4 @@
-package studio.springs.bortz;
+package studio.springs.bortz.ui.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,7 +11,7 @@ public class SettingsCapture {
     public static final boolean DEFAULT_GUIDES = true;
     public static final ThemeManager.Theme DEFAULT_THEME = ThemeManager.Theme.CHESS;
 
-    protected SettingsCapture(Context context){
+    public SettingsCapture(Context context){
         pref = context.getSharedPreferences("MyPref", Context.MODE_PRIVATE);
         editor = pref.edit();
     }

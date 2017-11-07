@@ -1,4 +1,4 @@
-package studio.springs.bortz;
+package studio.springs.bortz.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Switch;
+
+import studio.springs.bortz.R;
+import studio.springs.bortz.ui.utils.SettingsCapture;
+import studio.springs.bortz.ui.utils.ThemeManager;
 
 public class SettingsMenu extends AppCompatActivity implements AdapterView.OnItemClickListener,
         CompoundButton.OnCheckedChangeListener {

@@ -1,9 +1,11 @@
-package studio.springs.bortz.engine.pieces;
+package studio.springs.bortz.engine.pieces.types;
 
-import studio.springs.bortz.engine.Position;
+import studio.springs.bortz.engine.pieces.GamePiece;
+import studio.springs.bortz.engine.pieces.PieceType;
+import studio.springs.bortz.engine.utils.Position;
 
 public class ChickenPiece extends GamePiece {
-    ChickenPiece(){
+    public ChickenPiece(){
         type = PieceType.CHICKEN;
     }
     @Override
