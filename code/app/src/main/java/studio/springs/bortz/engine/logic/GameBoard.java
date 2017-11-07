@@ -45,7 +45,7 @@ public class GameBoard {
     }
     void removeCapturedPiece(GamePiece piece){
         capturedPieces.put(piece, countCapturedPieces(piece) - 1);
-        changes.add(new GameChange(GameChange.ChangeType.PIECE_PLACED,
+        changes.add(new GameChange(GameChange.ChangeType.PIECE_DROPPED,
                 new Position(countCapturedPieces(piece),-1), piece));
     }
     void addCapturedPiece(GamePiece piece){

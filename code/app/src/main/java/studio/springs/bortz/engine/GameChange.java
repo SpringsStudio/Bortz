@@ -8,7 +8,7 @@ public class GameChange {
         PIECE_REMOVED,
         PIECE_ADDED,
         PIECE_CAPTURED,
-        PIECE_PLACED,
+        PIECE_DROPPED,
         WIN
     }
     private final ChangeType type;

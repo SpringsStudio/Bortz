@@ -118,7 +118,7 @@ public class Game extends AppCompatActivity {
                     button = getCapturedPieceButton(change.getPiece().getColor(),change.getPiece().getType(), change.getPosition().x);
                     button.setVisibility(View.VISIBLE);
                     break;
-                case PIECE_PLACED:
+                case PIECE_DROPPED:
                     button = getCapturedPieceButton(change.getPiece().getColor(),change.getPiece().getType(),change.getPosition().x);
                     button.setVisibility(View.INVISIBLE);
                     break;
