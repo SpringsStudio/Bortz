@@ -1,4 +1,4 @@
-package studio.springs.bortz.engine;
+package studio.springs.bortz.engine.board;
 
 import android.util.Pair;
 
@@ -7,22 +7,24 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
+import studio.springs.bortz.engine.GameChange;
+import studio.springs.bortz.engine.Position;
 import studio.springs.bortz.engine.pieces.GamePiece;
 import studio.springs.bortz.engine.pieces.GamePieceFactory;
 import studio.springs.bortz.engine.pieces.PieceColor;
 import studio.springs.bortz.engine.pieces.PieceType;
 
- class GameBoard {
+public class GameBoard {
     private GamePiece[][] pieceBoard;
     private Map<Pair<PieceColor,PieceType>,Integer> capturedPieces;
-    Queue<GameChange> changes;
+    public Queue<GameChange> changes;
 
         GameBoard(int width, int height) {
         pieceBoard = new GamePiece[width][height];
         capturedPieces = new HashMap<>();
         changes = new LinkedList<>();
     }
-    GamePiece getPiece(Position pos){
+    public GamePiece getPiece(Position pos){
         if (pos.MoreThan(Position.Subtract(getSize(), new Position(1,1))) || pos.LessThan(new Position(0,0))){
             return null;
         }
@@ -42,7 +44,7 @@ import studio.springs.bortz.engine.pieces.PieceType;
     public Position getSize(){
         return new Position(pieceBoard.length, pieceBoard[0].length);
     }
-    Integer countCapturedPieces(PieceType type, PieceColor color){
+    public Integer countCapturedPieces(PieceType type, PieceColor color){
         final Integer count = capturedPieces.get(new Pair<>(color, type));
         return count == null ? 0 : count;
     }
