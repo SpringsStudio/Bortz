@@ -13,7 +13,7 @@ import java.util.Queue;
 import studio.springs.bortz.R;
 import studio.springs.bortz.engine.GameClient;
 import studio.springs.bortz.engine.GameInterface;
-import studio.springs.bortz.engine.logic.BoardChange;
+import studio.springs.bortz.engine.board.BoardChange;
 import studio.springs.bortz.engine.utils.IllegalMoveException;
 import studio.springs.bortz.engine.utils.Position;
 import studio.springs.bortz.engine.pieces.PieceColor;

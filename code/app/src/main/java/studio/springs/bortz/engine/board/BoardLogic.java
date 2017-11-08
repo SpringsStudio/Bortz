@@ -1,4 +1,4 @@
-package studio.springs.bortz.engine.logic;
+package studio.springs.bortz.engine.board;
 
 import java.util.ArrayList;
 import java.util.List;

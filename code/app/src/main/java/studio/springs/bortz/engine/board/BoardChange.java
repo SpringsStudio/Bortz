@@ -1,4 +1,4 @@
-package studio.springs.bortz.engine.logic;
+package studio.springs.bortz.engine.board;
 
 import studio.springs.bortz.engine.pieces.GamePiece;
 import studio.springs.bortz.engine.utils.Position;

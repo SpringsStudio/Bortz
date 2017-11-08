@@ -2,9 +2,9 @@ package studio.springs.bortz.engine;
 
 import java.util.Queue;
 
-import studio.springs.bortz.engine.logic.BoardChange;
-import studio.springs.bortz.engine.logic.BoardLogic;
-import studio.springs.bortz.engine.logic.GameBoard;
+import studio.springs.bortz.engine.board.BoardChange;
+import studio.springs.bortz.engine.board.BoardLogic;
+import studio.springs.bortz.engine.board.GameBoard;
 import studio.springs.bortz.engine.utils.IllegalMoveException;
 
 class GameEngine {
