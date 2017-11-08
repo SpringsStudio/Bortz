@@ -64,4 +64,13 @@ class BoardLogicTest {
             }
         });
     }
+    @org.junit.jupiter.api.Test
+    void moveNullPiece(){
+        assertThrows(IllegalMoveException.class, new Executable() {
+            @Override
+            public void execute() throws Throwable {
+                logic.movePiece(new Position(0,1), new Position(0,2));
+            }
+        });
+    }
 }
