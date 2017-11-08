@@ -5,14 +5,13 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
-import studio.springs.bortz.engine.GameChange;
 import studio.springs.bortz.engine.utils.Position;
 import studio.springs.bortz.engine.pieces.GamePiece;
 
 public class GameBoard {
     private GamePiece[][] pieceBoard;
     private Map<GamePiece,Integer> capturedPieces;
-    public Queue<GameChange> changes;
+    public Queue<BoardChange> changes;
 
     GameBoard(int width, int height) {
         pieceBoard = new GamePiece[width][height];
@@ -29,10 +28,10 @@ public class GameBoard {
     }
     void setPiece(Position pos, GamePiece piece){
         if (piece != null){
-            changes.add(new GameChange(GameChange.ChangeType.PIECE_ADDED, pos, piece));
+            changes.add(new BoardChange(BoardChange.ChangeType.PIECE_ADDED, pos, piece));
         }
         else {
-            changes.add(new GameChange(GameChange.ChangeType.PIECE_REMOVED, pos, getPiece(pos)));
+            changes.add(new BoardChange(BoardChange.ChangeType.PIECE_REMOVED, pos, getPiece(pos)));
         }
         pieceBoard[pos.x][pos.y] = piece;
     }
@@ -45,11 +44,11 @@ public class GameBoard {
     }
     void removeCapturedPiece(GamePiece piece){
         capturedPieces.put(piece, countCapturedPieces(piece) - 1);
-        changes.add(new GameChange(GameChange.ChangeType.PIECE_DROPPED,
+        changes.add(new BoardChange(BoardChange.ChangeType.PIECE_DROPPED,
                 new Position(countCapturedPieces(piece),-1), piece));
     }
     void addCapturedPiece(GamePiece piece){
-        changes.add(new GameChange(GameChange.ChangeType.PIECE_CAPTURED,
+        changes.add(new BoardChange(BoardChange.ChangeType.PIECE_CAPTURED,
                 new Position(countCapturedPieces(piece),-1), piece));
         capturedPieces.put(piece, countCapturedPieces(piece) + 1);
     }

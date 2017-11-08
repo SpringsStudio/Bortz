@@ -1,6 +1,9 @@
 package studio.springs.bortz.engine.logic;
 
-import studio.springs.bortz.engine.GameChange;
+import java.util.ArrayList;
+import java.util.List;
+
+import studio.springs.bortz.engine.GameMove;
 import studio.springs.bortz.engine.utils.IllegalMoveException;
 import studio.springs.bortz.engine.utils.Position;
 import studio.springs.bortz.engine.pieces.GamePiece;
@@ -10,10 +13,10 @@ import studio.springs.bortz.engine.pieces.PieceType;
 
 public class BoardLogic {
     private GameBoard board;
-    GameRecord record;
+    List<GameMove> record;
     public BoardLogic(GameBoard board) {
         this.board = board;
-        record = new GameRecord();
+        record = new ArrayList<>();
     }
     static public GameBoard prepareBoard() {
         GameBoard board = new GameBoard(3,4);
@@ -32,10 +35,9 @@ public class BoardLogic {
         final GamePiece toPiece = board.getPiece(to);
         final GamePiece fromPiece = board.getPiece(from);
         boolean gameWon = false;
-        boolean promotion = false;
-
-
-        if (toPiece != null && fromPiece.getColor() == toPiece.getColor()) {
+        if(fromPiece.getColor() != getPlayerColor()) {
+            throw new IllegalMoveException("It's not your turn right now!");
+        } else if (toPiece != null && fromPiece.getColor() == toPiece.getColor()) {
             throw new IllegalMoveException("You cannot capture your own piece.");
         } else if (fromPiece.canMove(Position.Subtract(to, from))) {
             if (toPiece != null) {
@@ -70,28 +72,34 @@ public class BoardLogic {
                     (to.y == 0 && fromPiece.getColor() == PieceColor.BLACK)) &&
                     fromPiece.promote() != null){
                 board.setPiece(to, fromPiece.promote());
-                promotion = true;
             }
             else {
                 board.setPiece(to, fromPiece);
             }
             board.setPiece(from, null);
 
-            record.addMove(new GameMove(fromPiece.getType(),from, GameMove.MoveType.SIMPLE_MOVEMENT,to,promotion));
-            if (gameWon) board.changes.add(new GameChange(GameChange.ChangeType.WIN, new Position(-1,-1), fromPiece));
+            record.add(new GameMove(fromPiece.getType(),from, GameMove.MoveType.SIMPLE_MOVEMENT,to));
+            if (gameWon) board.changes.add(new BoardChange(BoardChange.ChangeType.WIN, new Position(-1,-1), fromPiece));
         } else throw new IllegalMoveException("This piece cannot move like this");
     }
-    public void dropPiece(Position pos, GamePiece piece) throws IllegalMoveException {
+    PieceColor getPlayerColor(){
+        return record.size() % 2 == 0 ? PieceColor.WHITE : PieceColor.BLACK;
+    }
+    public void dropPiece(Position pos, PieceType type) throws IllegalMoveException {
+        GamePiece piece = GamePieceFactory.createPiece(type,getPlayerColor());
         if (board.getPiece(pos) != null) {
             throw new IllegalMoveException("A piece cannot be placed on a square that is already taken");
         }
         else if (board.countCapturedPieces(piece) < 1){
-            throw new IllegalMoveException("You have " + board.countCapturedPieces(piece) + " of this type of piece captured");
+            throw new IllegalMoveException("You do not have this type of piece captured");
         }
         else {
             board.setPiece(pos, piece);
             board.removeCapturedPiece(piece);
-            record.addMove(new GameMove(piece.getType(),null, GameMove.MoveType.DROP,pos,false));
+            record.add(new GameMove(piece.getType(),null, GameMove.MoveType.DROP,pos));
         }
+    }
+    public List<GameMove> getMoves(){
+        return record;
     }
 }

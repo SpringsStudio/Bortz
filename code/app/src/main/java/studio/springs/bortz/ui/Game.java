@@ -11,8 +11,9 @@ import android.widget.Toast;
 import java.util.Queue;
 
 import studio.springs.bortz.R;
-import studio.springs.bortz.engine.GameChange;
-import studio.springs.bortz.engine.GameEngine;
+import studio.springs.bortz.engine.GameClient;
+import studio.springs.bortz.engine.GameInterface;
+import studio.springs.bortz.engine.logic.BoardChange;
 import studio.springs.bortz.engine.utils.IllegalMoveException;
 import studio.springs.bortz.engine.utils.Position;
 import studio.springs.bortz.engine.pieces.PieceColor;
@@ -22,7 +23,8 @@ import studio.springs.bortz.ui.utils.ThemeManager;
 
 public class Game extends AppCompatActivity {
     private Resources res;
-    private final GameEngine engine = new GameEngine();
+    private final GameClient client = new GameClient();
+    private final GameInterface gInterface = client.getInterface();
     private ThemeManager tmanager;
     private SettingsCapture capture;
 
@@ -44,20 +46,20 @@ public class Game extends AppCompatActivity {
         final String id = res.getResourceEntryName(v.getId());
         final int buttonX = Character.getNumericValue(id.charAt(6));
         final int buttonY = Character.getNumericValue(id.charAt(7));
-        try {
-            engine.selectBoardSquare(new Position(buttonX,buttonY));
-            updateView();
-        }
-        catch (IllegalMoveException ex){
-            Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
+        gInterface.selectBoardSquare(new Position(buttonX, buttonY));
+        if (gInterface.getState() == GameInterface.InterfaceState.MOVE_END){
+            try {
+                client.performMove();
+                updateView();
+            } catch (IllegalMoveException ex) {
+                Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         }
     }
     public void capturedPieceButtonPressed(View v){
         final String id = res.getResourceEntryName(v.getId());
-        final char colorLetter = id.charAt(11);
-        final PieceColor color = (colorLetter == 'W') ? PieceColor.WHITE : PieceColor.BLACK;
         final PieceType type = PieceType.values()[Character.getNumericValue(id.charAt(13))];
-        engine.selectCapturedPiece(type, color);
+        gInterface.selectCapturedPiece(type);
 
     }
     void prepareView(){
@@ -87,10 +89,10 @@ public class Game extends AppCompatActivity {
     }
 
     void updateView(){
-        final Queue<GameChange> changes = engine.getChanges();
+        final Queue<BoardChange> changes = client.getChanges();
         ImageButton button;
         while (changes.peek() != null) {
-            GameChange change = changes.remove();
+            BoardChange change = changes.remove();
             // ------------------ DEBUGGING INFO ---------------------------------------------------------- //
             System.out.println("[Change] Type: " + change.getType().name() + "; Position: x=" +
                     change.getPosition().x + ", y=" + change.getPosition().y + "; Piece: type=" +

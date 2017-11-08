@@ -1,9 +1,9 @@
-package studio.springs.bortz.engine;
+package studio.springs.bortz.engine.logic;
 
 import studio.springs.bortz.engine.pieces.GamePiece;
 import studio.springs.bortz.engine.utils.Position;
 
-public class GameChange {
+public class BoardChange {
     public enum ChangeType {
         PIECE_REMOVED,
         PIECE_ADDED,
@@ -15,7 +15,7 @@ public class GameChange {
     private final Position pos;
     private final GamePiece piece;
 
-    public GameChange(ChangeType type, Position pos, GamePiece piece) {
+    public BoardChange(ChangeType type, Position pos, GamePiece piece) {
         this.type = type;
         this.pos = pos;
         this.piece = piece;
