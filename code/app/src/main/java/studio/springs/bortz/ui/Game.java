@@ -49,9 +49,8 @@ public class Game extends AppCompatActivity {
         final int buttonX = Character.getNumericValue(id.charAt(6));
         final int buttonY = Character.getNumericValue(id.charAt(7));
         gInterface.selectBoardSquare(new Position(buttonX, buttonY));
-        final PieceColor color = id.charAt(5) == 'B' ? PieceColor.BLACK : PieceColor.WHITE;
 
-        if (color == currentPlayerColor && gInterface.getState() == GameInterface.InterfaceState.MOVE_END){
+        if (gInterface.getState() == GameInterface.InterfaceState.MOVE_END){
             currentPlayerColor = PieceColor.opposite(currentPlayerColor);
             try {
                 client.performMove();
@@ -64,7 +63,10 @@ public class Game extends AppCompatActivity {
     public void capturedPieceButtonPressed(View v){
         final String id = res.getResourceEntryName(v.getId());
         final PieceType type = PieceType.values()[Character.getNumericValue(id.charAt(13))];
-        gInterface.selectCapturedPiece(type);
+        final PieceColor color = id.charAt(11) == 'B' ? PieceColor.BLACK : PieceColor.WHITE;
+        if(color == currentPlayerColor) {
+            gInterface.selectCapturedPiece(type);
+        }
 
     }
     void prepareView(){
