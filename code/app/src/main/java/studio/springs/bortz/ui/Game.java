@@ -50,7 +50,7 @@ public class Game extends AppCompatActivity {
         final int buttonY = Character.getNumericValue(id.charAt(7));
         gInterface.selectBoardSquare(new Position(buttonX, buttonY));
 
-        if (gInterface.getState() == GameInterface.InterfaceState.MOVE_END){
+        if (gInterface.hasMoveEnded()){
             try {
                 client.performMove();
                 currentPlayerColor = PieceColor.opposite(currentPlayerColor);
