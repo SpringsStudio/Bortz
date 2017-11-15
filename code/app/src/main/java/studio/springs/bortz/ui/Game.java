@@ -27,11 +27,13 @@ public class Game extends AppCompatActivity {
     private final GameInterface gInterface = client.getInterface();
     private ThemeManager tmanager;
     private SettingsCapture capture;
+    private PieceColor currentPlayerColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        currentPlayerColor = PieceColor.WHITE;
         capture = new SettingsCapture(this);
         tmanager = new ThemeManager(capture.getTheme(), capture.getGuides());
 
@@ -47,7 +49,10 @@ public class Game extends AppCompatActivity {
         final int buttonX = Character.getNumericValue(id.charAt(6));
         final int buttonY = Character.getNumericValue(id.charAt(7));
         gInterface.selectBoardSquare(new Position(buttonX, buttonY));
-        if (gInterface.getState() == GameInterface.InterfaceState.MOVE_END){
+        final PieceColor color = id.charAt(5) == 'B' ? PieceColor.BLACK : PieceColor.WHITE;
+
+        if (color == currentPlayerColor && gInterface.getState() == GameInterface.InterfaceState.MOVE_END){
+            currentPlayerColor = PieceColor.opposite(currentPlayerColor);
             try {
                 client.performMove();
                 updateView();
@@ -91,8 +96,9 @@ public class Game extends AppCompatActivity {
     void updateView(){
         final Queue<BoardChange> changes = client.getChanges();
         ImageButton button;
+        BoardChange change;
         while (changes.peek() != null) {
-            BoardChange change = changes.remove();
+            change = changes.remove();
             // ------------------ DEBUGGING INFO ---------------------------------------------------------- //
             System.out.println("[Change] Type: " + change.getType().name() + "; Position: x=" +
                     change.getPosition().x + ", y=" + change.getPosition().y + "; Piece: type=" +
@@ -130,5 +136,6 @@ public class Game extends AppCompatActivity {
                     break;
             }
         }
+
     }
 }
