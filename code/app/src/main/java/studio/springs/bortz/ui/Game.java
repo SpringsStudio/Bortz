@@ -51,9 +51,9 @@ public class Game extends AppCompatActivity {
         gInterface.selectBoardSquare(new Position(buttonX, buttonY));
 
         if (gInterface.getState() == GameInterface.InterfaceState.MOVE_END){
-            currentPlayerColor = PieceColor.opposite(currentPlayerColor);
             try {
                 client.performMove();
+                currentPlayerColor = PieceColor.opposite(currentPlayerColor);
                 updateView();
             } catch (IllegalMoveException ex) {
                 Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
