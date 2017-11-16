@@ -154,7 +154,6 @@ public class Game extends AppCompatActivity {
         Position vector = Position.Subtract(to, from);
         float distanceX = vector.x * (butt.getWidth() + 16);
         float distanceY = vector.y * (butt.getHeight() + 16);
-        System.out.println(distanceX);
         TranslateAnimation animation = new TranslateAnimation(-distanceX,0,distanceY,0);
         animation.setDuration(200);
         animation.setInterpolator(new AccelerateDecelerateInterpolator());
