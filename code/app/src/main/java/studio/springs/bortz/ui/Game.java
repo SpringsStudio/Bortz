@@ -3,8 +3,12 @@ package studio.springs.bortz.ui;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -99,6 +103,7 @@ public class Game extends AppCompatActivity {
         final Queue<BoardChange> changes = client.getChanges();
         ImageButton button;
         BoardChange change;
+        Position removedPosition = null;
         while (changes.peek() != null) {
             change = changes.remove();
             // ------------------ DEBUGGING INFO ---------------------------------------------------------- //
@@ -109,7 +114,6 @@ public class Game extends AppCompatActivity {
             switch (change.getType()) {
                 case PIECE_ADDED:
                     button = getBoardButton(change.getPosition());
-                    button.setAlpha(1.0f);
                     button.setImageDrawable(tmanager.getPieceDrawable(change.getPiece().getType()));
                     if (change.getPiece().getColor() == PieceColor.WHITE) {
                         button.setRotation(0);
@@ -119,9 +123,14 @@ public class Game extends AppCompatActivity {
                         button.setRotation(180);
                         button.setColorFilter(null);
                     }
+                    button.setAlpha(1.0f);
+                    if(removedPosition != null){
+                        createAnimation(button, removedPosition, change.getPosition());
+                    }
                     break;
                 case PIECE_REMOVED:
                     button = getBoardButton(change.getPosition());
+                    removedPosition = change.getPosition();
                     button.setAlpha(0.0f);
                     break;
                 case PIECE_CAPTURED:
@@ -130,6 +139,7 @@ public class Game extends AppCompatActivity {
                     break;
                 case PIECE_DROPPED:
                     button = getCapturedPieceButton(change.getPiece().getColor(),change.getPiece().getType(),change.getPosition().x);
+                    removedPosition = null;
                     button.setVisibility(View.INVISIBLE);
                     break;
                 case WIN:
@@ -139,5 +149,33 @@ public class Game extends AppCompatActivity {
             }
         }
 
+    }
+    void createAnimation(final ImageButton butt, Position from, Position to){
+        Position vector = Position.Subtract(to, from);
+        float distanceX = vector.x * (butt.getWidth() + 16);
+        float distanceY = vector.y * (butt.getHeight() + 16);
+        System.out.println(distanceX);
+        TranslateAnimation animation = new TranslateAnimation(-distanceX,0,distanceY,0);
+        animation.setDuration(200);
+        animation.setInterpolator(new AccelerateDecelerateInterpolator());
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                ViewCompat.setZ(butt,1);
+                ViewCompat.setZ((View) butt.getParent(),1);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                ViewCompat.setZ(butt,0);
+                ViewCompat.setZ((View) butt.getParent(),0);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        butt.startAnimation(animation);
     }
 }

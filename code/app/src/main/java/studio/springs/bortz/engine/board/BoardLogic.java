@@ -72,6 +72,7 @@ public class BoardLogic {
         if (isLionReachingEndOfBoard(fromPiece, to)){
             if (isLionWinningSecurely(fromPiece, to)) gameWon = true;
         }
+        board.setPiece(from, null);
         // Promote piece if it reaches the end or the beginning of the board.
         if (isPieceReachningEndOfBoardAndNotPromoted(fromPiece, to)){
             board.setPiece(to, fromPiece.promote());
@@ -79,7 +80,6 @@ public class BoardLogic {
         else {
             board.setPiece(to, fromPiece);
         }
-        board.setPiece(from, null);
 
         record.add(new GameMove(fromPiece.getType(),from, GameMove.MoveType.SIMPLE_MOVEMENT,to));
         if (gameWon) board.changes.add(new BoardChange(BoardChange.ChangeType.WIN, new Position(-1,-1), fromPiece));
