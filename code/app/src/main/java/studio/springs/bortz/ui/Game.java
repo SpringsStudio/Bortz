@@ -150,10 +150,10 @@ public class Game extends AppCompatActivity {
         }
 
     }
-    void createAnimation(final ImageButton butt, Position from, Position to){
+    void createAnimation(final ImageButton button, Position from, Position to){
         Position vector = Position.Subtract(to, from);
-        float distanceX = vector.x * (butt.getWidth() + 16);
-        float distanceY = vector.y * (butt.getHeight() + 16);
+        float distanceX = vector.x * (button.getWidth() + 16);
+        float distanceY = vector.y * (button.getHeight() + 16);
         System.out.println(distanceX);
         TranslateAnimation animation = new TranslateAnimation(-distanceX,0,distanceY,0);
         animation.setDuration(200);
@@ -161,14 +161,14 @@ public class Game extends AppCompatActivity {
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                ViewCompat.setZ(butt,1);
-                ViewCompat.setZ((View) butt.getParent(),1);
+                ViewCompat.setZ(button,1);
+                ViewCompat.setZ((View) button.getParent(),1);
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                ViewCompat.setZ(butt,0);
-                ViewCompat.setZ((View) butt.getParent(),0);
+                ViewCompat.setZ(button,0);
+                ViewCompat.setZ((View) button.getParent(),0);
             }
 
             @Override
@@ -176,6 +176,6 @@ public class Game extends AppCompatActivity {
 
             }
         });
-        butt.startAnimation(animation);
+        button.startAnimation(animation);
     }
 }
