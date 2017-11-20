@@ -91,6 +91,60 @@ public class BoardLogic {
         if (gameWon) board.changes.add(new BoardChange(BoardChange.ChangeType.WIN, new Position(-1,-1), fromPiece));
     }
 
+    public List<GameMove> possbleMoves(){
+        List<GameMove> moves = new ArrayList<>();
+        Position range = new Position(1,1);
+        List<Position> boardPositions = Position.listPositions(new Position(0,0), Position.Subtract(board.getSize(),range));
+
+        for(Position pos : boardPositions){
+            GamePiece piece = board.getPiece(pos);
+            if(piece != null){
+                for (Position pos2 : Position.listPositions(Position.Subtract(pos, range), Position.Add(pos, range))) {
+                    if (canMovePiece(pos, pos2)) {
+                        moves.add(new GameMove(piece.getType(), pos, GameMove.MoveType.SIMPLE_MOVEMENT, pos2));
+                    }
+                }
+            }
+            else {
+                for (PieceType type : new PieceType[]{
+                        PieceType.GIRAFFE,
+                        PieceType.CHICK,
+                        PieceType.ELEPHANT}){
+                    if(canDropPiece(pos,type)){
+                        moves.add(new GameMove(type, null, GameMove.MoveType.DROP, pos));
+                    }
+                }
+            }
+        }
+        return moves;
+    }
+    public List<GameBoard> possibleBoards(){
+        List<GameMove> gameMoves = possbleMoves();
+        List<GameBoard> boards = new ArrayList<>(gameMoves.size());
+        for (GameMove move : gameMoves) {
+            GameBoard newBoard = new GameBoard(board);
+            switch (move.movement){
+                case SIMPLE_MOVEMENT:
+                    GamePiece fromPiece = newBoard.getPiece(move.origin);
+                    Position to = move.destination;
+                    if (isPieceReachningEndOfBoardAndNotPromoted(fromPiece, to)){
+                        newBoard.setPiece(to, fromPiece.promote());
+                    }
+                    else {
+                        newBoard.setPiece(to, fromPiece);
+                    }
+                    break;
+                case DROP:
+                    GamePiece piece = GamePieceFactory.createPiece(move.piece,getPlayerColor());
+                    board.removeCapturedPiece(piece);
+                    board.setPiece(move.destination, piece);
+                    break;
+            }
+            boards.add(newBoard);
+        }
+        return boards;
+    }
+
     private boolean destroyPieceOrWin(GamePiece toPiece){
         if (toPiece.getType() == PieceType.LION) {
             return true;

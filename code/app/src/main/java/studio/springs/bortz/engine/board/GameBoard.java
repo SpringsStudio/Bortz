@@ -18,6 +18,11 @@ public class GameBoard {
         capturedPieces = new HashMap<>();
         changes = new LinkedList<>();
     }
+    GameBoard(GameBoard another){
+        this.pieceBoard = another.pieceBoard.clone();
+        this.capturedPieces = new HashMap<>(another.capturedPieces);
+        this.changes = new LinkedList<>(another.changes);
+    }
     public GamePiece getPiece(Position pos){
         if (pos.MoreThan(Position.Subtract(getSize(), new Position(1,1))) || pos.LessThan(new Position(0,0))){
             return null;
