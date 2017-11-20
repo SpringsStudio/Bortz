@@ -15,6 +15,9 @@ import android.widget.Toast;
 import java.util.Queue;
 
 import studio.springs.bortz.R;
+import studio.springs.bortz.ai.Ai;
+import studio.springs.bortz.ai.RandomAi;
+import studio.springs.bortz.engine.AiGameClient;
 import studio.springs.bortz.engine.GameClient;
 import studio.springs.bortz.engine.GameInterface;
 import studio.springs.bortz.engine.board.BoardChange;
@@ -27,7 +30,7 @@ import studio.springs.bortz.ui.utils.ThemeManager;
 
 public class Game extends AppCompatActivity {
     private Resources res;
-    private final GameClient client = new GameClient();
+    private final GameClient client = new AiGameClient();
     private final GameInterface gInterface = client.getInterface();
     private ThemeManager tmanager;
     private SettingsCapture capture;

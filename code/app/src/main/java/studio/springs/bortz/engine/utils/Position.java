@@ -24,8 +24,8 @@ public class Position {
     }
     public static List<Position> listPositions(Position from, Position to){
         List<Position> list = new ArrayList<>(((to.x - from.x + 1) * (to.y - from.y + 1)));
-        for (int xi = from.x; xi < to.x; xi++){
-            for (int yi = from.y; yi < to.y; yi++){
+        for (int xi = from.x; xi <= to.x; xi++){
+            for (int yi = from.y; yi <= to.y; yi++){
                 list.add(new Position(xi,yi));
             }
         }
