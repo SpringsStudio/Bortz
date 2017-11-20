@@ -36,6 +36,7 @@ public class BoardLogic {
         final GamePiece fromPiece = board.getPiece(from);
         return !isNowOpponentsTurn(fromPiece) &&
             !isOpponentsPieceChosen(fromPiece, toPiece) &&
+            !isPositionOutOfBounds(to) &&
             fromPiece.canMove(Position.Subtract(to, from));
 
     }
@@ -150,5 +151,8 @@ public class BoardLogic {
                 (to.y == 0 && fromPiece.getColor() == PieceColor.BLACK)) && fromPiece.promote() != null;
     }
 
-
+    private boolean isPositionOutOfBounds(Position pos){
+        return pos.x < 0 || pos.y < 0 ||
+                pos.x >= board.getSize().x || pos.y >= board.getSize().y;
+    }
 }
