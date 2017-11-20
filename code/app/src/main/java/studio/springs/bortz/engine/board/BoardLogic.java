@@ -31,39 +31,44 @@ public class BoardLogic {
         board.setPiece(new Position(1, 2), GamePieceFactory.createPiece(PieceType.CHICK, PieceColor.BLACK));
         return board;
     }
-    public void movePiece(Position from, Position to) throws IllegalMoveException {
+    public boolean canMovePiece(Position from, Position to){
         final GamePiece toPiece = board.getPiece(to);
         final GamePiece fromPiece = board.getPiece(from);
-        if(isNowOpponentsTurn(fromPiece)) {
-            throw new IllegalMoveException("It's not your turn right now!");
-        } else if (isOpponentsPieceChosen(fromPiece, toPiece)) {
-            throw new IllegalMoveException("You cannot capture your own piece.");
-        } else if (fromPiece.canMove(Position.Subtract(to, from))) {
-            updateGameStatus(toPiece, fromPiece, from, to);
-        } else throw new IllegalMoveException("This piece cannot move like this");
+        return !isNowOpponentsTurn(fromPiece) &&
+            !isOpponentsPieceChosen(fromPiece, toPiece) &&
+            fromPiece.canMove(Position.Subtract(to, from));
+
+    }
+    public boolean canDropPiece(Position pos, PieceType type){
+        GamePiece piece = GamePieceFactory.createPiece(type,getPlayerColor());
+        return !isPositionAlreadyTaken(pos) &&
+            !isThisPieceAvailable(piece);
+
+    }
+    public void movePiece(Position from, Position to) throws IllegalMoveException {
+        if (canMovePiece(from, to))
+            updateGameStatus(from, to);
+        else throw new IllegalMoveException("Illegal move attempted!");
     }
     PieceColor getPlayerColor(){
         return record.size() % 2 == 0 ? PieceColor.WHITE : PieceColor.BLACK;
     }
     public void dropPiece(Position pos, PieceType type) throws IllegalMoveException {
-        GamePiece piece = GamePieceFactory.createPiece(type,getPlayerColor());
-        if (isPositionAlreadyTaken(pos)) {
-            throw new IllegalMoveException("A piece cannot be placed on a square that is already taken");
-        }
-        else if (isThisPieceAvailable(piece)){
-            throw new IllegalMoveException("You do not have this type of piece captured");
-        }
-        else {
+        if (canDropPiece(pos, type)){
+            GamePiece piece = GamePieceFactory.createPiece(type,getPlayerColor());
             board.setPiece(pos, piece);
             board.removeCapturedPiece(piece);
-            record.add(new GameMove(piece.getType(),null, GameMove.MoveType.DROP,pos));
+            record.add(new GameMove(type,null, GameMove.MoveType.DROP,pos));
         }
+        else throw new IllegalMoveException("Illegal drop attempted!");
     }
     public List<GameMove> getMoves(){
         return record;
     }
 
-    private void updateGameStatus(GamePiece toPiece, GamePiece fromPiece, Position from, Position to){
+    private void updateGameStatus(Position from, Position to){
+        final GamePiece toPiece = board.getPiece(to);
+        final GamePiece fromPiece = board.getPiece(from);
         boolean gameWon = false;
         if (isPieceAttacked(toPiece)) {
             gameWon = destroyPieceOrWin(toPiece);
