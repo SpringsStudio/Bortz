@@ -69,7 +69,7 @@ public class Game extends AppCompatActivity {
         final String id = res.getResourceEntryName(v.getId());
         final PieceType type = PieceType.values()[Character.getNumericValue(id.charAt(13))];
         final PieceColor color = id.charAt(11) == 'B' ? PieceColor.BLACK : PieceColor.WHITE;
-        if(color == currentPlayerColor) {
+        if(color == PieceColor.WHITE) {
             gInterface.selectCapturedPiece(type);
         }
 

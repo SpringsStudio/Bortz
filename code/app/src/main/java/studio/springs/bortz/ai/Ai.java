@@ -8,6 +8,7 @@ import studio.springs.bortz.engine.board.BoardLogic;
 import studio.springs.bortz.engine.board.GameBoard;
 import studio.springs.bortz.engine.pieces.GamePiece;
 import studio.springs.bortz.engine.pieces.PieceColor;
+import studio.springs.bortz.engine.pieces.PieceType;
 import studio.springs.bortz.engine.utils.Position;
 
 public abstract class Ai {
@@ -29,11 +30,22 @@ public abstract class Ai {
 
         for(Position pos : boardPositions){
             GamePiece piece = board.getPiece(pos);
-            if(piece != null && piece.getColor() == aiColor){
-                System.out.println("Found piece: " + piece.getType().name());
-                for(Position pos2 : Position.listPositions(Position.Subtract(pos,range),Position.Add(pos,range))){
-                    if(logic.canMovePiece(pos,pos2)){
-                        moves.add(new GameMove(piece.getType(),pos, GameMove.MoveType.SIMPLE_MOVEMENT,pos2));
+            if(piece != null){
+                if(piece.getColor() == aiColor) {
+                    for (Position pos2 : Position.listPositions(Position.Subtract(pos, range), Position.Add(pos, range))) {
+                        if (logic.canMovePiece(pos, pos2)) {
+                            moves.add(new GameMove(piece.getType(), pos, GameMove.MoveType.SIMPLE_MOVEMENT, pos2));
+                        }
+                    }
+                }
+            }
+            else {
+                for (PieceType type : new PieceType[]{
+                        PieceType.GIRAFFE,
+                        PieceType.CHICK,
+                        PieceType.ELEPHANT}){
+                    if(logic.canDropPiece(pos,type)){
+                        moves.add(new GameMove(type, null, GameMove.MoveType.DROP, pos));
                     }
                 }
             }

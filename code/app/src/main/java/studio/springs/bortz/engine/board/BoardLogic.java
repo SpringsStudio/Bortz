@@ -57,8 +57,8 @@ public class BoardLogic {
     public void dropPiece(Position pos, PieceType type) throws IllegalMoveException {
         if (canDropPiece(pos, type)){
             GamePiece piece = GamePieceFactory.createPiece(type,getPlayerColor());
-            board.setPiece(pos, piece);
             board.removeCapturedPiece(piece);
+            board.setPiece(pos, piece);
             record.add(new GameMove(type,null, GameMove.MoveType.DROP,pos));
         }
         else throw new IllegalMoveException("Illegal drop attempted!");

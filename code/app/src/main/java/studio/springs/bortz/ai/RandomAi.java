@@ -16,7 +16,9 @@ public class RandomAi extends Ai {
     @Override
     public GameMove calculateMove() {
         List<GameMove> posMoves = possbleMoves();
+        if (posMoves.size() == 0) return null;
         int randomnum = (int) Math.floor(Math.random() *  posMoves.size());
+        System.out.println("Random: " + randomnum);
         return posMoves.get(randomnum);
     }
 }

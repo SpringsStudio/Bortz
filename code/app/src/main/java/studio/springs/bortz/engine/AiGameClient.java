@@ -14,6 +14,8 @@ public class AiGameClient extends GameClient {
     @Override
     public void performMove() throws IllegalMoveException{
         super.performMove();
-        performMove(ai.calculateMove());
+        GameMove aiMove = ai.calculateMove();
+        if (aiMove != null)
+            performMove(aiMove);
     }
 }
