@@ -9,19 +9,21 @@ import studio.springs.bortz.engine.pieces.PieceColor;
 
 public class MinimaxAi extends Ai {
     private int depth;
+    private int sign;
     public MinimaxAi(BoardLogic logic, GameBoard board, PieceColor aiColor, int depth){
         super(logic, board, aiColor);
+        sign = aiColor == PieceColor.WHITE ? 1 : -1;
         this.depth = depth;
     }
 
     @Override
     public GameMove calculateMove() {
         GameMove bestMove = null;
-        int bestMoveValue = -9999;
+        int bestMoveValue = -sign * 9999;
 
         for (GameMove move : logic.possbleMoves()){
             int newMove = minimax(board, move, depth - 1, aiColor);
-            if ( newMove > bestMoveValue){
+            if ( sign * newMove > sign * bestMoveValue ){
                 bestMove = move;
                 bestMoveValue = newMove;
             }
@@ -31,21 +33,17 @@ public class MinimaxAi extends Ai {
     private int minimax(GameBoard board, GameMove move, int depth, PieceColor playerColor){
         GameBoard newBoard = BoardLogic.boardAfterMovement(board, playerColor, move);
         int boardValue = evaluateBoard(newBoard);
-        if (depth == 0 || evaluateBoard(board) > boardValue)
+        if (depth == 0 || sign * evaluateBoard(board) > sign * boardValue) {
             return boardValue;
+        }
         else {
             List<GameMove> moves = BoardLogic.possibleMoves(newBoard,PieceColor.opposite(playerColor));
-            int bestMove;
-            if (aiColor == PieceColor.opposite(playerColor)){
-                bestMove = -9999;
-                for (GameMove newMove : moves){
-                    bestMove = Math.max(bestMove, minimax(newBoard, newMove,depth - 1 , PieceColor.opposite(playerColor)));
-                }
-            }
-            else {
-                bestMove = 9999;
-                for (GameMove newMove : moves){
-                    bestMove = Math.min(bestMove, minimax(newBoard, newMove, depth - 1, PieceColor.opposite(playerColor)));
+            int mod = PieceColor.opposite(playerColor) == PieceColor.WHITE ? 1 : -1;
+            int bestMove = -mod * 9999;
+            for (GameMove newMove : moves){
+                int newMoveValue = minimax(newBoard, newMove, depth - 1, PieceColor.opposite(playerColor));
+                if ( mod * newMoveValue > mod * bestMove ){
+                    bestMove = newMoveValue;
                 }
             }
             return bestMove;

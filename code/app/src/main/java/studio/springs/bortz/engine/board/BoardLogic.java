@@ -40,11 +40,6 @@ public class BoardLogic {
                 fromPiece.canMove(Position.Subtract(to, from));
     }
     public boolean canMovePiece(Position from, Position to){
-        GamePiece fromPiece =  board.getPiece(from);
-        if (isNowOpponentsTurn(getPlayerColor(),fromPiece)){
-            System.out.println("It is now " + getPlayerColor().name() + "'s turn!");
-            System.out.println("Selected piece at " + from.x + "," + from.y + ": type=" + fromPiece.getType().name() + ", color=" + fromPiece.getColor().name());
-        }
         return canMovePiece(this.board, getPlayerColor(),from,to);
     }
     public static boolean canDropPiece(GameBoard board, PieceColor playerColor, Position pos, PieceType type){
@@ -137,12 +132,13 @@ public class BoardLogic {
             case SIMPLE_MOVEMENT:
                 GamePiece fromPiece = newBoard.getPiece(move.origin);
                 Position to = move.destination;
+                newBoard.setPiece(move.origin, null);
                 if (isPieceReachningEndOfBoardAndNotPromoted(newBoard, fromPiece, to)){
                     newBoard.setPiece(to, fromPiece.promote());
                 }
                 else {
                     newBoard.setPiece(to, fromPiece);
-                }
+                };
                 break;
             case DROP:
                 GamePiece piece = GamePieceFactory.createPiece(move.piece,playerColor);
