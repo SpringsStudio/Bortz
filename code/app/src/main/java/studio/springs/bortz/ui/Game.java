@@ -16,7 +16,6 @@ import java.util.Queue;
 
 import studio.springs.bortz.R;
 import studio.springs.bortz.engine.AiGameClient;
-import studio.springs.bortz.engine.GameClient;
 import studio.springs.bortz.engine.GameInterface;
 import studio.springs.bortz.engine.board.BoardChange;
 import studio.springs.bortz.engine.utils.IllegalMoveException;
@@ -28,7 +27,7 @@ import studio.springs.bortz.ui.utils.ThemeManager;
 
 public class Game extends AppCompatActivity {
     private Resources res;
-    private GameClient client = new AiGameClient();
+    private AiGameClient client = new AiGameClient();
     private GameInterface gInterface = client.getInterface();
     private ThemeManager tmanager;
     private SettingsCapture capture;
@@ -60,6 +59,7 @@ public class Game extends AppCompatActivity {
                 client.performMove();
                 currentPlayerColor = PieceColor.opposite(currentPlayerColor);
                 updateView();
+                client.startAiMove();
             } catch (IllegalMoveException ex) {
                 Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -69,7 +69,7 @@ public class Game extends AppCompatActivity {
         final String id = res.getResourceEntryName(v.getId());
         final PieceType type = PieceType.values()[Character.getNumericValue(id.charAt(13))];
         final PieceColor color = id.charAt(11) == 'B' ? PieceColor.BLACK : PieceColor.WHITE;
-        if(color == PieceColor.WHITE) {
+        if(color == currentPlayerColor) {
             gInterface.selectCapturedPiece(type);
         }
 
@@ -128,6 +128,9 @@ public class Game extends AppCompatActivity {
                     if(removedPosition != null){
                         createAnimation(button, removedPosition, change.getPosition());
                     }
+                    else {
+                        createAnimation(button, change.getPosition(), change.getPosition());
+                    }
                     break;
                 case PIECE_REMOVED:
                     button = getBoardButton(change.getPosition());
@@ -170,6 +173,15 @@ public class Game extends AppCompatActivity {
             public void onAnimationEnd(Animation animation) {
                 ViewCompat.setZ(button,0);
                 ViewCompat.setZ((View) button.getParent(),0);
+                if (currentPlayerColor == client.getAiColor()) {
+                    try {
+                        client.waitForAi();
+                        currentPlayerColor = PieceColor.opposite(currentPlayerColor);
+                        updateView();
+                    } catch (Exception e) {
+                        System.err.println("ERROR: " + e.getMessage());
+                    }
+                }
             }
 
             @Override

@@ -11,18 +11,19 @@ import studio.springs.bortz.engine.pieces.PieceColor;
 import studio.springs.bortz.engine.pieces.PieceType;
 import studio.springs.bortz.engine.utils.Position;
 
-public abstract class Ai {
+public abstract class Ai extends Thread{
     public abstract GameMove calculateMove();
     protected GameBoard board;
     protected BoardLogic logic;
     protected PieceColor aiColor;
+    private GameMove calculatedMove;
 
     Ai(BoardLogic logic, GameBoard board, PieceColor aiColor){
         this.board = board;
         this.aiColor = aiColor;
         this.logic = logic;
     }
-    static Map<PieceType,Integer> piecesValuse = new HashMap<>(); static {
+    private static Map<PieceType,Integer> piecesValuse = new HashMap<>(); static {
         piecesValuse.put(PieceType.LION, 900);
         piecesValuse.put(PieceType.CHICKEN, 70);
         piecesValuse.put(PieceType.GIRAFFE, 50);
@@ -42,5 +43,11 @@ public abstract class Ai {
         }
         return value;
     }
-
+    public void run(){
+        calculatedMove = calculateMove();
+    }
+    public GameMove getLastMove(){
+        return calculatedMove;
+    }
+    public PieceColor getAiColor(){return aiColor;}
 }
