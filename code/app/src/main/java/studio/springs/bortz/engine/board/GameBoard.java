@@ -1,5 +1,6 @@
 package studio.springs.bortz.engine.board;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -19,7 +20,11 @@ public class GameBoard {
         changes = new LinkedList<>();
     }
     GameBoard(GameBoard another){
-        this.pieceBoard = another.pieceBoard.clone();
+        Position anotherSize = another.getSize();
+        pieceBoard = new GamePiece[anotherSize.x][anotherSize.y];
+        for (int i = 0; i < anotherSize.x; i++){
+           pieceBoard[i] = Arrays.copyOf(another.pieceBoard[i],anotherSize.y);
+        }
         this.capturedPieces = new HashMap<>(another.capturedPieces);
         this.changes = new LinkedList<>(another.changes);
     }
