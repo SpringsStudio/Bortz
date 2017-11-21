@@ -1,5 +1,6 @@
 package studio.springs.bortz.ai;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import studio.springs.bortz.engine.GameMove;
@@ -18,17 +19,22 @@ public class MinimaxAi extends Ai {
 
     @Override
     public GameMove calculateMove() {
-        GameMove bestMove = null;
+        List<GameMove> bestMoves = new ArrayList<>();
         int bestMoveValue = -sign * 9999;
 
         for (GameMove move : logic.possbleMoves()){
             int newMove = minimax(board, move, depth - 1, aiColor);
             if ( sign * newMove > sign * bestMoveValue ){
-                bestMove = move;
+                bestMoves.clear();
+                bestMoves.add(move);
                 bestMoveValue = newMove;
             }
+            else if (newMove == bestMoveValue) {
+                bestMoves.add(move);
+            }
         }
-        return bestMove;
+        if (bestMoves.size() == 0) return null;
+        return bestMoves.get((int) Math.floor(Math.random() * bestMoves.size()));
     }
     private int minimax(GameBoard board, GameMove move, int depth, PieceColor playerColor){
         GameBoard newBoard = BoardLogic.boardAfterMovement(board, playerColor, move);
