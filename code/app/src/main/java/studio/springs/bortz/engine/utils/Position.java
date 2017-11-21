@@ -31,4 +31,7 @@ public class Position {
         }
         return list;
     }
+    public String toStr(){
+        return "(" + x + "," + y + ")";
+    }
 }
