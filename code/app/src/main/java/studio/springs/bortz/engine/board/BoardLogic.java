@@ -53,7 +53,7 @@ public class BoardLogic {
     }
     public void movePiece(Position from, Position to) throws IllegalMoveException {
         if (canMovePiece(from, to))
-            updateGameStatus(from, to);
+            unsafeMovePiece(from, to);
         else throw new IllegalMoveException("Illegal move attempted!");
     }
     public PieceColor getPlayerColor(){
@@ -61,26 +61,51 @@ public class BoardLogic {
     }
     public void dropPiece(Position pos, PieceType type) throws IllegalMoveException {
         if (canDropPiece(pos, type)){
-            GamePiece piece = GamePieceFactory.createPiece(type,getPlayerColor());
-            board.removeCapturedPiece(piece);
-            board.setPiece(pos, piece);
-            record.add(new GameMove(type,null, GameMove.MoveType.DROP,pos));
+            unsafeDropPiece(pos,type);
         }
         else throw new IllegalMoveException("Illegal drop attempted!");
+    }
+    public void unsafeDropPiece(Position pos, PieceType type){
+        GamePiece piece = GamePieceFactory.createPiece(type,getPlayerColor());
+        board.removeCapturedPiece(piece);
+        board.setPiece(pos, piece);
+        record.add(new GameMove(type,null, GameMove.MoveType.DROP,pos));
+    }
+    public void performMove(GameMove move) throws IllegalMoveException{
+        switch (move.movement){
+            case SIMPLE_MOVEMENT:
+                movePiece(move.origin, move.destination);
+                break;
+            case DROP:
+                dropPiece(move.destination, move.piece);
+                break;
+        }
+    }
+    public void unsafePerformMove(GameMove move){
+        switch (move.movement){
+            case SIMPLE_MOVEMENT:
+                unsafeMovePiece(move.origin, move.destination);
+                break;
+            case DROP:
+                unsafeDropPiece(move.destination, move.piece);
+                break;
+        }
     }
     public List<GameMove> getMoves(){
         return record;
     }
-    private void updateGameStatus(Position from, Position to){
+    private void unsafeMovePiece(Position from, Position to){
         final GamePiece toPiece = board.getPiece(to);
         final GamePiece fromPiece = board.getPiece(from);
         boolean gameWon = false;
-        if (isPieceAttacked(toPiece)) {
-            gameWon = destroyPieceOrWin(toPiece);
-        }
-        // If white lion reaches the end or black lion reaches beginning check if they are in danger, if not win.
-        if (isLionReachingEndOfBoard(fromPiece, to)){
-            if (isLionWinningSecurely(fromPiece, to)) gameWon = true;
+        if (board.isChangesEnabled()) {
+            if (isPieceAttacked(toPiece)) {
+                gameWon = destroyPieceOrWin(toPiece);
+            }
+            // If white lion reaches the end or black lion reaches beginning check if they are in danger, if not win.
+            if (isLionReachingEndOfBoard(fromPiece, to)) {
+                if (isLionWinningSecurely(fromPiece, to)) gameWon = true;
+            }
         }
         board.setPiece(from, null);
         // Promote piece if it reaches the end or the beginning of the board.
@@ -92,7 +117,7 @@ public class BoardLogic {
         }
 
         record.add(new GameMove(fromPiece.getType(),from, GameMove.MoveType.SIMPLE_MOVEMENT,to));
-        if (gameWon) board.changes.add(new BoardChange(BoardChange.ChangeType.WIN, new Position(-1,-1), fromPiece));
+        if (gameWon) board.addChange(new BoardChange(BoardChange.ChangeType.WIN, new Position(-1,-1), fromPiece));
     }
 
     public static List<GameMove> possibleMoves(GameBoard board, PieceColor playerColor){
