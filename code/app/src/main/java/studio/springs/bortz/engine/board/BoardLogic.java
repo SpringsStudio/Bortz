@@ -168,7 +168,7 @@ public class BoardLogic {
         }
         return moves;
     }
-    public List<GameMove> possbleMoves(){
+    public List<GameMove> possibleMoves(){
         return possibleMoves(this.board, getPlayerColor());
     }
     public static GameBoard boardAfterMovement(GameBoard board, PieceColor playerColor, GameMove move){
@@ -198,7 +198,7 @@ public class BoardLogic {
         return boardAfterMovement(this.board, getPlayerColor(), move);
     }
     public List<GameBoard> possibleBoards(){
-        List<GameMove> gameMoves = possbleMoves();
+        List<GameMove> gameMoves = possibleMoves();
         List<GameBoard> boards = new ArrayList<>(gameMoves.size());
         for (GameMove move : gameMoves) {
             boards.add(boardAfterMovement(move));
