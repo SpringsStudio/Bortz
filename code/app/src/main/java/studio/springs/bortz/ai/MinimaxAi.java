@@ -24,7 +24,7 @@ public class MinimaxAi extends Ai {
         List<GameMove> bestMoves = new ArrayList<>();
         int bestMoveValue = -sign * maxValue;
 
-        for (GameMove move : logic.possbleMoves()){
+        for (GameMove move : logic.possibleMoves()){
             int newMove = minimax(board, move, depth - 1, aiColor);
             if ( sign * newMove > sign * bestMoveValue ){
                 bestMoves.clear();
