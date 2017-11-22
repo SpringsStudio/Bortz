@@ -24,7 +24,7 @@ public class AiGameClient extends GameClient {
                 System.out.print(". From: " + aiMove.origin.x + "," + aiMove.origin.y);
             System.out.println(". To: " + aiMove.destination.x + "," + aiMove.destination.y);
             // -------------------------------------------------------------------------------------------- //
-            performMove(aiMove);
+            logic.performMove(aiMove);
         }
         else
             System.out.println("Warning: Ai did not find a possible move."); // <--- Here as well
