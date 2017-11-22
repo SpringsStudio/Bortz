@@ -1,5 +1,8 @@
 package studio.springs.bortz.engine;
 
+import java.util.Queue;
+
+import studio.springs.bortz.engine.board.BoardChange;
 import studio.springs.bortz.engine.board.BoardLogic;
 import studio.springs.bortz.engine.board.GameBoard;
 import studio.springs.bortz.engine.utils.IllegalMoveException;
@@ -18,4 +21,7 @@ public class GameClient{
         logic.performMove(gInterface.getMove());
     }
 
+    public Queue<BoardChange> getChanges(){
+        return board.changes;
+    }
 }
