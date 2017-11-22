@@ -52,6 +52,7 @@ public class GameBoard {
         if (changesEnabled) changes.add(change);
     }
     public void setChangesEnabled(boolean changesEnabled){this.changesEnabled = changesEnabled;}
+    public boolean isChangesEnabled(){return changesEnabled;}
     public Position getSize(){
         return new Position(pieceBoard.length, pieceBoard[0].length);
     }
