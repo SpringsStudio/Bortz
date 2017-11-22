@@ -3,7 +3,6 @@ package studio.springs.bortz.engine.board;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 import studio.springs.bortz.engine.utils.GameMove;
 import studio.springs.bortz.engine.utils.IllegalMoveException;
@@ -16,7 +15,7 @@ import studio.springs.bortz.engine.pieces.PieceType;
 public class BoardLogic {
     private GameBoard board;
     List<GameMove> record;
-    Queue<GamePiece> capturedPieces;
+    LinkedList<GamePiece> capturedPieces;
 
     public BoardLogic(GameBoard board) {
         this.board = board;
@@ -65,11 +64,12 @@ public class BoardLogic {
         final GamePiece toPiece = board.getPiece(to);
         final GamePiece fromPiece = board.getPiece(from);
         boolean gameWon = false;
-        if (board.isChangesEnabled()) {
-            if (isPieceAttacked(toPiece)) {
-                gameWon = destroyPieceOrWin(toPiece);
-            }
+        Boolean promotion = false;
+        if (isPieceAttacked(toPiece)) {
+            gameWon = destroyPieceOrWin(toPiece);
+        }
             // If white lion reaches the end or black lion reaches beginning check if they are in danger, if not win.
+        if (board.isChangesEnabled()) {
             if (isLionReachingEndOfBoard(fromPiece, to)) {
                 if (isLionWinningSecurely(fromPiece, to)) gameWon = true;
             }
@@ -78,12 +78,13 @@ public class BoardLogic {
         // Promote piece if it reaches the end or the beginning of the board.
         if (isPieceReachningEndOfBoardAndNotPromoted(fromPiece, to)){
             board.setPiece(to, fromPiece.promote());
+            promotion = true;
         }
         else {
             board.setPiece(to, fromPiece);
         }
         capturedPieces.add(toPiece);
-        record.add(new GameMove(fromPiece.getType(),from, GameMove.MoveType.SIMPLE_MOVEMENT,to));
+        record.add(new GameMove(fromPiece.getType(),from, GameMove.MoveType.SIMPLE_MOVEMENT,to,promotion));
         if (gameWon) board.addChange(new BoardChange(BoardChange.ChangeType.WIN, new Position(-1,-1), fromPiece));
     }
     public void dropPiece(Position pos, PieceType type) throws IllegalMoveException {
@@ -126,10 +127,19 @@ public class BoardLogic {
 
         switch (lastMove.movement){
             case SIMPLE_MOVEMENT:
-                board.setPiece(lastMove.origin,board.getPiece(lastMove.destination));
-                GamePiece lastPiece = capturedPieces.remove();
+                if (lastMove.promotion)
+                    board.setPiece(lastMove.origin,board.getPiece(lastMove.destination).demote());
+                else
+                    board.setPiece(lastMove.origin,board.getPiece(lastMove.destination));
+
+                GamePiece lastPiece = capturedPieces.removeLast();
                 board.setPiece(lastMove.destination,lastPiece);
-                if (lastPiece != null) board.removeCapturedPiece(lastPiece);
+                if (lastPiece != null && lastPiece.getType() != PieceType.LION) {
+                    if (lastPiece.demote() == null)
+                        board.removeCapturedPiece(lastPiece.swapColor());
+                    else
+                        board.removeCapturedPiece(lastPiece.demote().swapColor());
+                }
                 break;
             case DROP:
                 board.addCapturedPiece(board.getPiece(lastMove.destination));
