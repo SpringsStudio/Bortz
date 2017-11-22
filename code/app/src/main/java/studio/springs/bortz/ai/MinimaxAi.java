@@ -17,10 +17,12 @@ public class MinimaxAi extends Ai {
         this.depth = depth;
     }
 
+    int maxValue = 999999;
+
     @Override
     public GameMove calculateMove() {
         List<GameMove> bestMoves = new ArrayList<>();
-        int bestMoveValue = -sign * 9999;
+        int bestMoveValue = -sign * maxValue;
 
         for (GameMove move : logic.possbleMoves()){
             int newMove = minimax(board, move, depth - 1, aiColor);
@@ -45,7 +47,7 @@ public class MinimaxAi extends Ai {
         else {
             List<GameMove> moves = BoardLogic.possibleMoves(newBoard,PieceColor.opposite(playerColor));
             int mod = PieceColor.opposite(playerColor) == PieceColor.WHITE ? 1 : -1;
-            int bestMove = -mod * 9999;
+            int bestMove = -mod * maxValue;
             for (GameMove newMove : moves){
                 int newMoveValue = minimax(newBoard, newMove, depth - 1, PieceColor.opposite(playerColor));
                 if ( mod * newMoveValue > mod * bestMove ){
