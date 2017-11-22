@@ -41,12 +41,15 @@ public class GameBoard {
     }
     void setPiece(Position pos, GamePiece piece){
         if (piece != null){
-            changes.add(new BoardChange(BoardChange.ChangeType.PIECE_ADDED, pos, piece));
+            addChange(new BoardChange(BoardChange.ChangeType.PIECE_ADDED, pos, piece));
         }
         else {
-            changes.add(new BoardChange(BoardChange.ChangeType.PIECE_REMOVED, pos, getPiece(pos)));
+            addChange(new BoardChange(BoardChange.ChangeType.PIECE_REMOVED, pos, getPiece(pos)));
         }
         pieceBoard[pos.x][pos.y] = piece;
+    }
+    void addChange(BoardChange change){
+        if (changesEnabled) changes.add(change);
     }
     public void setChangesEnabled(boolean changesEnabled){this.changesEnabled = changesEnabled;}
     public Position getSize(){
@@ -58,11 +61,11 @@ public class GameBoard {
     }
     void removeCapturedPiece(GamePiece piece){
         capturedPieces.put(piece, countCapturedPieces(piece) - 1);
-        changes.add(new BoardChange(BoardChange.ChangeType.PIECE_DROPPED,
+        addChange(new BoardChange(BoardChange.ChangeType.PIECE_DROPPED,
                 new Position(countCapturedPieces(piece),-1), piece));
     }
     void addCapturedPiece(GamePiece piece){
-        changes.add(new BoardChange(BoardChange.ChangeType.PIECE_CAPTURED,
+        addChange(new BoardChange(BoardChange.ChangeType.PIECE_CAPTURED,
                 new Position(countCapturedPieces(piece),-1), piece));
         capturedPieces.put(piece, countCapturedPieces(piece) + 1);
     }
