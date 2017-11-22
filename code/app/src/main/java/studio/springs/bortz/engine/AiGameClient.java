@@ -3,6 +3,7 @@ package studio.springs.bortz.engine;
 import studio.springs.bortz.ai.Ai;
 import studio.springs.bortz.ai.MinimaxAi;
 import studio.springs.bortz.engine.pieces.PieceColor;
+import studio.springs.bortz.engine.utils.GameMove;
 import studio.springs.bortz.engine.utils.IllegalMoveException;
 
 public class AiGameClient extends GameClient {

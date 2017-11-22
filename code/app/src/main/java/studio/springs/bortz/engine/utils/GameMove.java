@@ -1,6 +1,5 @@
-package studio.springs.bortz.engine;
+package studio.springs.bortz.engine.utils;
 
-import studio.springs.bortz.engine.utils.Position;
 import studio.springs.bortz.engine.pieces.PieceType;
 
 public class GameMove {

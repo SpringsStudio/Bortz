@@ -3,6 +3,7 @@ package studio.springs.bortz.engine;
 import studio.springs.bortz.engine.board.GameBoard;
 import studio.springs.bortz.engine.pieces.GamePiece;
 import studio.springs.bortz.engine.pieces.PieceType;
+import studio.springs.bortz.engine.utils.GameMove;
 import studio.springs.bortz.engine.utils.Position;
 
 public class GameInterface {

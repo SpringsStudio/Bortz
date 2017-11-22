@@ -3,7 +3,7 @@ package studio.springs.bortz.ai;
 import java.util.ArrayList;
 import java.util.List;
 
-import studio.springs.bortz.engine.GameMove;
+import studio.springs.bortz.engine.utils.GameMove;
 import studio.springs.bortz.engine.board.BoardLogic;
 import studio.springs.bortz.engine.board.GameBoard;
 import studio.springs.bortz.engine.pieces.PieceColor;

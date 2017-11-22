@@ -5,6 +5,7 @@ import java.util.Queue;
 import studio.springs.bortz.engine.board.BoardChange;
 import studio.springs.bortz.engine.board.BoardLogic;
 import studio.springs.bortz.engine.board.GameBoard;
+import studio.springs.bortz.engine.utils.GameMove;
 import studio.springs.bortz.engine.utils.IllegalMoveException;
 
 class GameEngine {

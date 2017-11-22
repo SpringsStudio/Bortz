@@ -3,7 +3,7 @@ package studio.springs.bortz.engine.board;
 import java.util.ArrayList;
 import java.util.List;
 
-import studio.springs.bortz.engine.GameMove;
+import studio.springs.bortz.engine.utils.GameMove;
 import studio.springs.bortz.engine.utils.IllegalMoveException;
 import studio.springs.bortz.engine.utils.Position;
 import studio.springs.bortz.engine.pieces.GamePiece;
@@ -56,7 +56,7 @@ public class BoardLogic {
             updateGameStatus(from, to);
         else throw new IllegalMoveException("Illegal move attempted!");
     }
-    PieceColor getPlayerColor(){
+    public PieceColor getPlayerColor(){
         return record.size() % 2 == 0 ? PieceColor.WHITE : PieceColor.BLACK;
     }
     public void dropPiece(Position pos, PieceType type) throws IllegalMoveException {
@@ -71,7 +71,6 @@ public class BoardLogic {
     public List<GameMove> getMoves(){
         return record;
     }
-
     private void updateGameStatus(Position from, Position to){
         final GamePiece toPiece = board.getPiece(to);
         final GamePiece fromPiece = board.getPiece(from);
