@@ -1,6 +1,6 @@
 ## Bortz
 
-Bortz is a shogi-based game for Android platform. The goal for this project was to create simple, open-source and free-to-play game that resembles classic shogi (japanese chess), but in form more accessible for casual palyer. Thus, the dobutsu shogi version was chosen for further development. It is basically shogi for children, with smaller board and restriction to only one-square move for pieces.
+Bortz is a shogi-based game for Android platform. The goal for this project was to create simple and open-source game that resembles classic shogi (japanese chess), but in form more accessible for casual palyer. Thus, the dobutsu shogi version was chosen for further development. It is basically shogi for children, with smaller board and restriction to only one-square move for pieces.
 
 ## Getting Started
 ### Prerequisites
@@ -15,7 +15,7 @@ NOTE: You should use Bortz/code folder as a root for project.
 
 ## Gameplay
 
-Bortz now offers only player vs AI and player vs player modes. To access them choose Training option from Main Menu. Then choose between Fight AI and Fight Player. This will automatically set up a new game board. 
+Bortz now offers only player vs AI mode. To access it choose Training option from Main Menu and then Fight AI. This will automatically set up a new game board. 
 
 Additionally, player can set a theme and/or guides for pieces. To access this funcionality go to Settings from Main Menu and then mark your theme of choice and set guides accordingly to preferences.
 
@@ -29,9 +29,7 @@ Board is 3x4 in size, each player has initially four pieces (Lion, Giraffe, Elep
 
 The captured piece becomes capturer's piece ready to be placed on ANY non-taken position on board when it is capturer's turn. You can find pieces captured by yourself below the board. If a Chick reaches the end of a board it evolves to Chicken which has enhanced movement regimes. Remember that captured Chicken becomes Chick if placed back on board.
 
-
-
-## Authors
+## Contributors
 
 * Szymon Mikulicz
 * Marcel Piszak
