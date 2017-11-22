@@ -1,7 +1,9 @@
 package studio.springs.bortz.engine.board;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import studio.springs.bortz.engine.utils.GameMove;
 import studio.springs.bortz.engine.utils.IllegalMoveException;
@@ -14,9 +16,12 @@ import studio.springs.bortz.engine.pieces.PieceType;
 public class BoardLogic {
     private GameBoard board;
     List<GameMove> record;
+    Queue<GamePiece> capturedPieces;
+
     public BoardLogic(GameBoard board) {
         this.board = board;
         record = new ArrayList<>();
+        capturedPieces = new LinkedList<>();
     }
     static public GameBoard prepareBoard() {
         GameBoard board = new GameBoard(3,4);
@@ -56,44 +61,6 @@ public class BoardLogic {
             unsafeMovePiece(from, to);
         else throw new IllegalMoveException("Illegal move attempted!");
     }
-    public PieceColor getPlayerColor(){
-        return record.size() % 2 == 0 ? PieceColor.WHITE : PieceColor.BLACK;
-    }
-    public void dropPiece(Position pos, PieceType type) throws IllegalMoveException {
-        if (canDropPiece(pos, type)){
-            unsafeDropPiece(pos,type);
-        }
-        else throw new IllegalMoveException("Illegal drop attempted!");
-    }
-    public void unsafeDropPiece(Position pos, PieceType type){
-        GamePiece piece = GamePieceFactory.createPiece(type,getPlayerColor());
-        board.removeCapturedPiece(piece);
-        board.setPiece(pos, piece);
-        record.add(new GameMove(type,null, GameMove.MoveType.DROP,pos));
-    }
-    public void performMove(GameMove move) throws IllegalMoveException{
-        switch (move.movement){
-            case SIMPLE_MOVEMENT:
-                movePiece(move.origin, move.destination);
-                break;
-            case DROP:
-                dropPiece(move.destination, move.piece);
-                break;
-        }
-    }
-    public void unsafePerformMove(GameMove move){
-        switch (move.movement){
-            case SIMPLE_MOVEMENT:
-                unsafeMovePiece(move.origin, move.destination);
-                break;
-            case DROP:
-                unsafeDropPiece(move.destination, move.piece);
-                break;
-        }
-    }
-    public List<GameMove> getMoves(){
-        return record;
-    }
     private void unsafeMovePiece(Position from, Position to){
         final GamePiece toPiece = board.getPiece(to);
         final GamePiece fromPiece = board.getPiece(from);
@@ -115,9 +82,63 @@ public class BoardLogic {
         else {
             board.setPiece(to, fromPiece);
         }
-
+        capturedPieces.add(toPiece);
         record.add(new GameMove(fromPiece.getType(),from, GameMove.MoveType.SIMPLE_MOVEMENT,to));
         if (gameWon) board.addChange(new BoardChange(BoardChange.ChangeType.WIN, new Position(-1,-1), fromPiece));
+    }
+    public void dropPiece(Position pos, PieceType type) throws IllegalMoveException {
+        if (canDropPiece(pos, type)){
+            unsafeDropPiece(pos,type);
+        }
+        else throw new IllegalMoveException("Illegal drop attempted!");
+    }
+    public void unsafeDropPiece(Position pos, PieceType type){
+        GamePiece piece = GamePieceFactory.createPiece(type,getPlayerColor());
+        board.removeCapturedPiece(piece);
+        board.setPiece(pos, piece);
+        record.add(new GameMove(type,null, GameMove.MoveType.DROP,pos));
+    }
+    public PieceColor getPlayerColor(){
+        return record.size() % 2 == 0 ? PieceColor.WHITE : PieceColor.BLACK;
+    }
+    public void performMove(GameMove move) throws IllegalMoveException{
+        switch (move.movement){
+            case SIMPLE_MOVEMENT:
+                movePiece(move.origin, move.destination);
+                break;
+            case DROP:
+                dropPiece(move.destination, move.piece);
+                break;
+        }
+    }
+    public void unsafePerformMove(GameMove move){
+        switch (move.movement){
+            case SIMPLE_MOVEMENT:
+                unsafeMovePiece(move.origin, move.destination);
+                break;
+            case DROP:
+                unsafeDropPiece(move.destination, move.piece);
+                break;
+        }
+    }
+    public void undo(){
+        GameMove lastMove = record.remove(record.size() - 1);
+
+        switch (lastMove.movement){
+            case SIMPLE_MOVEMENT:
+                board.setPiece(lastMove.origin,board.getPiece(lastMove.destination));
+                GamePiece lastPiece = capturedPieces.remove();
+                board.setPiece(lastMove.destination,lastPiece);
+                if (lastPiece != null) board.removeCapturedPiece(lastPiece);
+                break;
+            case DROP:
+                board.addCapturedPiece(board.getPiece(lastMove.destination));
+                board.setPiece(lastMove.destination, null);
+                break;
+        }
+    }
+    public List<GameMove> getMoves(){
+        return record;
     }
 
     public static List<GameMove> possibleMoves(GameBoard board, PieceColor playerColor){
