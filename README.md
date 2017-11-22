@@ -36,4 +36,4 @@ The captured piece becomes capturer's piece ready to be placed on ANY non-taken 
 
 ## License
 
-Project is licensed under the GNU General Public License. For details see [LICENSE](https://github.com/SpringsStudio/Bortz/blob/master/LICENSE)
+Project is licensed under the GNU General Public License version 3. For details see [LICENSE](https://github.com/SpringsStudio/Bortz/blob/master/LICENSE)
