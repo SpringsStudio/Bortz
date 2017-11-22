@@ -21,8 +21,8 @@ public class AiGameClient extends GameClient {
             // ------------------ DEBUGGING INFO ---------------------------------------------------------- //
             System.out.print("Calculated move. Type: " + aiMove.movement.name() + ". Piece: " + aiMove.piece.name());
             if (aiMove.origin != null)
-                System.out.print(". From: " + aiMove.origin.x + "," + aiMove.origin.y);
-            System.out.println(". To: " + aiMove.destination.x + "," + aiMove.destination.y);
+                System.out.print(". From: " + aiMove.origin.toStr());
+            System.out.println(". To: " + aiMove.destination.toStr());
             // -------------------------------------------------------------------------------------------- //
             logic.performMove(aiMove);
         }
