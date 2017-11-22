@@ -13,11 +13,13 @@ public class GameBoard {
     private GamePiece[][] pieceBoard;
     private Map<GamePiece,Integer> capturedPieces;
     public Queue<BoardChange> changes;
+    private boolean changesEnabled;
 
     GameBoard(int width, int height) {
         pieceBoard = new GamePiece[width][height];
         capturedPieces = new HashMap<>();
         changes = new LinkedList<>();
+        changesEnabled = true;
     }
     GameBoard(GameBoard another){
         Position anotherSize = another.getSize();
@@ -27,6 +29,7 @@ public class GameBoard {
         }
         this.capturedPieces = new HashMap<>(another.capturedPieces);
         this.changes = new LinkedList<>(another.changes);
+        this.changesEnabled = another.changesEnabled;
     }
     public GamePiece getPiece(Position pos){
         if (pos.MoreThan(Position.Subtract(getSize(), new Position(1,1))) || pos.LessThan(new Position(0,0))){
@@ -45,6 +48,7 @@ public class GameBoard {
         }
         pieceBoard[pos.x][pos.y] = piece;
     }
+    public void setChangesEnabled(boolean changesEnabled){this.changesEnabled = changesEnabled;}
     public Position getSize(){
         return new Position(pieceBoard.length, pieceBoard[0].length);
     }
