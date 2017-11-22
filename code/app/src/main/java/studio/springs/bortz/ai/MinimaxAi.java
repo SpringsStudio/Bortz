@@ -23,9 +23,9 @@ public class MinimaxAi extends Ai {
     public GameMove calculateMove() {
         List<GameMove> bestMoves = new ArrayList<>();
         int bestMoveValue = -sign * maxValue;
-
-        for (GameMove move : logic.possbleMoves()){
-            int newMove = minimax(board, move, depth - 1, aiColor);
+        board.setChangesEnabled(false);
+        for (GameMove move : logic.possibleMoves()){
+            int newMove = minimax(move, depth - 1);
             if ( sign * newMove > sign * bestMoveValue ){
                 bestMoves.clear();
                 bestMoves.add(move);
@@ -35,26 +35,29 @@ public class MinimaxAi extends Ai {
                 bestMoves.add(move);
             }
         }
+        board.setChangesEnabled(true);
         if (bestMoves.size() == 0) return null;
         return bestMoves.get((int) Math.floor(Math.random() * bestMoves.size()));
     }
-    private int minimax(GameBoard board, GameMove move, int depth, PieceColor playerColor){
-        GameBoard newBoard = BoardLogic.boardAfterMovement(board, playerColor, move);
-        int boardValue = evaluateBoard(newBoard);
-        if (depth == 0 || sign * evaluateBoard(board) > sign * boardValue) {
-            return boardValue;
+    private int minimax(GameMove move, int depth){
+        int oldBoardValue = evaluateBoard(board);
+        logic.unsafePerformMove(move);
+        int newBoardValue = evaluateBoard(board);
+        int bestMove;
+        if (depth == 0 || sign * oldBoardValue > sign * newBoardValue) {
+            bestMove = newBoardValue;
         }
         else {
-            List<GameMove> moves = BoardLogic.possibleMoves(newBoard,PieceColor.opposite(playerColor));
-            int mod = PieceColor.opposite(playerColor) == PieceColor.WHITE ? 1 : -1;
-            int bestMove = -mod * maxValue;
-            for (GameMove newMove : moves){
-                int newMoveValue = minimax(newBoard, newMove, depth - 1, PieceColor.opposite(playerColor));
+            int mod = logic.getPlayerColor() == PieceColor.WHITE ? 1 : -1;
+            bestMove = -mod * maxValue;
+            for (GameMove newMove : logic.possibleMoves()){
+                int newMoveValue = minimax(newMove, depth - 1);
                 if ( mod * newMoveValue > mod * bestMove ){
                     bestMove = newMoveValue;
                 }
             }
-            return bestMove;
         }
+        logic.undo();
+        return bestMove;
     }
 }
