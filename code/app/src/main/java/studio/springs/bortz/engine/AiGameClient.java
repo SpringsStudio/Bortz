@@ -8,10 +8,13 @@ import studio.springs.bortz.engine.utils.IllegalMoveException;
 
 public class AiGameClient extends GameClient {
     Ai ai;
+    private int depth;
+
     public AiGameClient(){
-        this.ai = new MinimaxAi(logic, board, PieceColor.BLACK, 4);
+        this.depth = 4;
     }
     public void startAiMove(){
+        this.ai = new MinimaxAi(logic, board, PieceColor.BLACK, depth);
         ai.start();
     }
     public void waitForAi() throws InterruptedException, IllegalMoveException{
@@ -29,5 +32,5 @@ public class AiGameClient extends GameClient {
         else
             System.out.println("Warning: Ai did not find a possible move."); // <--- Here as well
     }
-    public PieceColor getAiColor(){return ai.getAiColor();}
+    public PieceColor getAiColor(){return PieceColor.BLACK;}
 }
