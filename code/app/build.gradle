@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'de.mannodermaus.android-junit5'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
     defaultConfig {
         applicationId "studio.springs.bortz"
         minSdkVersion 19
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -21,13 +21,30 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    implementation 'com.android.support:appcompat-v7:26.+'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    testImplementation junit5()
-    testCompileOnly junit5EmbeddedRuntime()
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+
+    implementation 'com.android.support:appcompat-v7:27.+'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    // (Required) Writing and executing Unit Tests on the JUnit Platform.
+    testImplementation junit5.unitTests()
+
+    // (Optional) If you need "Parameterized Tests".
+    testImplementation junit5.parameterized()
+
+    // (Optional) For running tests inside Android Studio 3
+    // Please refer to the "Android Studio Workarounds" section for more insight on this.
+    testCompileOnly junit5.unitTestsRuntime()
+
+    // (Optional) Writing and executing Instrumented Tests with the JUnit Platform Runner.
+    //
+    // IMPORTANT:
+    // By declaring this dependency, you have to use a minSdkVersion
+    // of at least 26, since the nature of JUnit 5 relies on APIs that aren't
+    // available on Android devices before then.
+    // Consider creating a product flavor for this - see the sample project for details.
+    androidTestImplementation junit5.instrumentationTests()
 }
